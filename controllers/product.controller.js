@@ -8,7 +8,17 @@ async function createProduct(req, res) {
   myUtil.checkDataIsNotEmpty(product);
   console.log(`req.body :`, req.body);
   await productServ.createProduct(product);
-  res.json("created product");
+  res.status(201).json("created product");
 }
 
-module.exports = { createProduct };
+async function test(req, res) {
+  const result = await productServ.getAllProduct();
+  res.status(200).json(result);
+}
+
+async function getAllProduct(req, res) {
+  const result = await productServ.getAllProduct();
+  res.status(200).json(result);
+}
+
+module.exports = { createProduct, test, getAllProduct };

@@ -47,9 +47,13 @@ async function createProduct(product) {
     });
   });
 
-  // 속성 테이블 가져오기
-
   return item;
 }
 
-module.exports = { test, createProduct };
+async function getAllProduct() {
+  const result = await itemDao.getAllProduct();
+  console.log(`result :`, result);
+  return result;
+}
+
+module.exports = { test, createProduct, getAllProduct };

@@ -4,7 +4,7 @@ const {asyncWrap} = require('../utils/myutils');
 
 const router = express.Router();
 
-router.get('/test', productCtl.createProduct);
+router.get('/test', asyncWrap(productCtl.test));
 
 /*
   {
