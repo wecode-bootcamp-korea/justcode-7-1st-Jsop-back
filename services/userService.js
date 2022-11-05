@@ -57,4 +57,13 @@ async function login(email, password) {
   return token;
 }
 
-module.exports = { signup, login };
+async function getMe(userId) {
+  const userInfo = await userDAO.findUserById(userId);
+  return userInfo;
+}
+
+module.exports = {
+  signup,
+  login,
+  getMe,
+};
