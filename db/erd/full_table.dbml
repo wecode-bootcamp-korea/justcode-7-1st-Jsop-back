@@ -84,7 +84,7 @@ Table "properties"{
 }
 
 // 주문 테이블
-Table "order"{
+Table "orders"{
   "id" integer [pk, increment]
   "order_number" varchar(150) [not null, unique]
   "total_price" decimal [not null]
@@ -112,9 +112,9 @@ Table "item_properties"{
 }
 
 // 주문 아이템 테이블
-Table "order_item"{
+Table "orders_item"{
   "id" integer [pk, increment]
-  "order_id" integer  [ref: > order.id]
+  "orders_id" integer  [ref: > orders.id]
   "item_size_id" integer  [ref: > item_size_price.id]
   "quantity" integer [not null]
 }

@@ -64,7 +64,7 @@ CREATE TABLE `properties` (
   `content` varchar(50) NOT NULL COMMENT 'ex) 모든 피부, 메이크업을 한 피부, 진정된, 생기있는'
 );
 
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `order_number` varchar(150) UNIQUE NOT NULL,
   `total_price` decimal NOT NULL,
@@ -124,7 +124,7 @@ ALTER TABLE `property_types` ADD FOREIGN KEY (`property_type_contents_id`) REFER
 
 ALTER TABLE `properties` ADD FOREIGN KEY (`property_type_contents_id`) REFERENCES `property_type_contents` (`id`);
 
-ALTER TABLE `order` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+ALTER TABLE `orders` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `order_contract` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
@@ -132,7 +132,7 @@ ALTER TABLE `item_properties` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`id
 
 ALTER TABLE `item_properties` ADD FOREIGN KEY (`properties_id`) REFERENCES `properties` (`id`);
 
-ALTER TABLE `order_item` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
+ALTER TABLE `order_item` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 ALTER TABLE `order_item` ADD FOREIGN KEY (`item_size_id`) REFERENCES `item_size_price` (`id`);
 
@@ -149,7 +149,7 @@ DROP TABLE `2_level_category`;
 DROP TABLE `property_types`;
 DROP TABLE `property_type_contents`;
 DROP TABLE `properties`;
-DROP TABLE `order`;
+DROP TABLE `orders`;
 DROP TABLE `size`;
 DROP TABLE `item_properties`;
 DROP TABLE `order_item`;
