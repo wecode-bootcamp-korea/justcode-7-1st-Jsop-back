@@ -90,6 +90,7 @@ Table "orders"{
   "total_price" decimal [not null]
   "users_id" integer  [ref: > users.id, note: '주문자 ID']
   "address" varchar(150) [note: '주문 주소']
+  created_at "timestamp default CURRENT_TIMESTAMP" [not null, note:'생성 날짜']
 }
 
 Table "order_contract"{
@@ -112,9 +113,9 @@ Table "item_properties"{
 }
 
 // 주문 아이템 테이블
-Table "orders_item"{
+Table "order_item"{
   "id" integer [pk, increment]
-  "orders_id" integer  [ref: > orders.id]
+  "order_id" integer  [ref: > orders.id]
   "item_size_id" integer  [ref: > item_size_price.id]
   "quantity" integer [not null]
 }

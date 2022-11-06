@@ -69,7 +69,8 @@ CREATE TABLE `orders` (
   `order_number` varchar(150) UNIQUE NOT NULL,
   `total_price` decimal NOT NULL,
   `users_id` integer COMMENT '주문자 ID',
-  `address` varchar(150) COMMENT '주문 주소'
+  `address` varchar(150) COMMENT '주문 주소',
+  `created_at` timestamp default CURRENT_TIMESTAMP NOT NULL COMMENT '생성 날짜'
 );
 
 CREATE TABLE `order_contract` (
