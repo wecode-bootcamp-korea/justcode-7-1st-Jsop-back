@@ -138,9 +138,9 @@ async function getAllProduct() {
     item.description,
     CONCAT('[',price,']') as price,
     JSON_OBJECT(
-      '1_level_category',
+      'level_1_category',
       1_level_category.content,
-      '2_level_category',
+      'level_2_category',
       2_level_category.content
     ) AS category,
     GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
