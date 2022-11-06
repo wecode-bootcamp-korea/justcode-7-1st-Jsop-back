@@ -11,7 +11,7 @@ const router = express.Router();
 router.use(userRouter);
 router.use(filterRouter);
 router.use('/products', productRouter);
-router.use('/', orderRouter);
+router.use('/orders', orderRouter);
 router.use(middleware.errorHandler);
 // router.use(otherRouter);
 

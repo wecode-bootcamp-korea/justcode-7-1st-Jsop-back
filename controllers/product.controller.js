@@ -11,7 +11,7 @@ async function createProduct(req, res) {
 }
 
 async function test(req, res) {
-  const result = await productServ.getAllProduct();
+  const result = await productServ.test();
   res.status(200).json(result);
 }
 

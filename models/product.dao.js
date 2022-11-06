@@ -14,7 +14,19 @@ async function createProduct(product) {
 }
 
 async function test() {
-  const result = await findCategory(1, '스킨 케어');
+  return await database.query(
+    `
+    SELECT
+      EXISTS(
+        SELECT
+          *
+        FROM
+          cart_item
+        WHERE
+          users_id = 1
+      ) AS Result;
+    `
+  );
 }
 
 // 카테고리가 존재하는 지 확인

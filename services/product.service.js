@@ -1,7 +1,7 @@
 const itemDao = require('../models/product.dao');
 
 async function test() {
-  const result = await itemDao.findPropertyType("사용감");
+  const result = await itemDao.test();
   console.log(`result :`, result);
 }
 

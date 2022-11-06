@@ -14,7 +14,19 @@ async function findOrderContract(req, res) {
   res.status(200).json(result);
 }
 
+async function createOrder(req, res) {
+  const result = await orderServ.createOrder(req.userInfo.id);
+  res.status(201).json({message: "ADD_SUCCESSFULLY"});
+}
+
+async function findAllOrder(req, res) {
+  const result = await orderServ.findAllOrder(req.userInfo.id);
+  res.status(201).json({result});
+}
+
 module.exports = {
   putOrderContract,
   findOrderContract,
+  createOrder,
+  findAllOrder,
 };
