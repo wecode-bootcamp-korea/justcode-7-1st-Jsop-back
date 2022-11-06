@@ -3,12 +3,14 @@ const errorHandler = (err, _1, res, _2) => {
   let responseInfo = err;
   if (err.sqlMessage) {
     console.log(err.sqlMessage);
-    responseInfo = {message: "failed", status: 500, ...err};
+    responseInfo = { message: 'failed', status: 500, ...err };
   }
-  console.log("err LOG:", err);
-  res.status(responseInfo.status || 500).send({ message: responseInfo.message || '' });
+  console.log('err LOG:', err);
+  res
+    .status(responseInfo.status || 500)
+    .send({ message: responseInfo.message || '' });
 };
 
 module.exports = {
-  errorHandler
-}
+  errorHandler,
+};
