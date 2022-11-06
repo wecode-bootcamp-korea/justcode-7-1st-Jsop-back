@@ -16,11 +16,11 @@ const addToCart = async (userId, item_size_id, quantity) => {
 const showToCart = async userId => {
   const showList = await dataSource.query(
     `SELECT
-    cart_item.id as cart_item_id,
+    cart_item.id AS cart_item_id,
     cart_item.users_id,
     cart_item.item_size_id,
-    item.title as title,
-    item.img_url as image,
+    item.title AS title,
+    item.img_url AS image,
     size.size,
     cart_item.quantity,
     item_size_price.price
