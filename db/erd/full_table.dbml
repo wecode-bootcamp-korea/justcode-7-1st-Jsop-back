@@ -92,6 +92,14 @@ Table "order"{
   "address" varchar(150) [note: '주문 주소']
 }
 
+Table "order_contract"{
+  "id" integer [pk, increment]
+  "user_id" integer [unique, ref: - U.id ]
+  "zipcode" varchar (10) [not null]
+  "street_address" varchar(150) [note: '주문 주소']
+  "supplimental_address" varchar(150) [note: '주문 주소']
+}
+
 Table "size" {
   "id" integer [pk, increment]
   "size" varchar(50) [not null, unique, note: '100ml, 150ml']
@@ -100,7 +108,7 @@ Table "size" {
 Table "item_properties"{
   "id" integer [pk, increment]
   "item_id" integer  [ref: > item.id]
-  "properties_id" integer [ref: > properties.id, note: '주문자 ID']
+  "properties_id" integer [ref: > properties.id]
 }
 
 // 주문 아이템 테이블

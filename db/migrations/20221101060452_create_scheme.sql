@@ -72,6 +72,14 @@ CREATE TABLE `order` (
   `address` varchar(150) COMMENT '주문 주소'
 );
 
+CREATE TABLE `order_contract` (
+  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `user_id` integer UNIQUE,
+  `zipcode` varchar(10) NOT NULL,
+  `street_address` varchar(150) COMMENT '주문 주소',
+  `supplimental_address` varchar(150) COMMENT '주문 주소'
+);
+
 CREATE TABLE `size` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `size` varchar(50) UNIQUE NOT NULL COMMENT '100ml, 150ml'
@@ -80,7 +88,7 @@ CREATE TABLE `size` (
 CREATE TABLE `item_properties` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `item_id` integer,
-  `properties_id` integer COMMENT '주문자 ID'
+  `properties_id` integer
 );
 
 CREATE TABLE `order_item` (
@@ -118,6 +126,8 @@ ALTER TABLE `properties` ADD FOREIGN KEY (`property_type_contents_id`) REFERENCE
 
 ALTER TABLE `order` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
+ALTER TABLE `order_contract` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
 ALTER TABLE `item_properties` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
 
 ALTER TABLE `item_properties` ADD FOREIGN KEY (`properties_id`) REFERENCES `properties` (`id`);
@@ -133,6 +143,7 @@ DROP TABLE `users_address`;
 DROP TABLE `item`;
 DROP TABLE `item_size_price`;
 DROP TABLE `cart_item`;
+DROP TABLE `order_contract`;
 DROP TABLE `1_level_category`;
 DROP TABLE `2_level_category`;
 DROP TABLE `property_types`;
