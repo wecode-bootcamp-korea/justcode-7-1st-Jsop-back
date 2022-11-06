@@ -1,6 +1,6 @@
 const dataSource = require('./database');
 
-async function filter(category) {
+async function findProductByCategory1(category) {
     const result = await dataSource.query(`
     SELECT item.id,
            item.title,
@@ -55,7 +55,7 @@ async function filter(category) {
       return result;
 }
 
-async function filter2(category) {
+async function findProductByCategory2(category) {
     const result = await dataSource.query(`
     SELECT item.id,
            item.title,
@@ -93,7 +93,7 @@ async function filter2(category) {
         JOIN property_type_contents ON property_type_contents.id = properties.property_type_contents_id
         GROUP BY item.id, property_type_contents.content
         ) item_type_property ON item_type_property.item_id = item.id
-    WHERE type_content = property_type_contents.content and 2_level_category.content = '${category}'
+        WHERE type_content = property_type_contents.content and 2_level_category.content = '${category}'
     GROUP BY
         item.id,
         title,
@@ -118,7 +118,7 @@ async function searchCategory(category) {
 }
 
 module.exports = {
-  filter,
+  findProductByCategory1,
+  findProductByCategory2,
   searchCategory,
-  filter2,
 };
