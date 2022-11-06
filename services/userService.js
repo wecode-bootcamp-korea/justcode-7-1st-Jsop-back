@@ -4,24 +4,24 @@ const userDAO = require('../models/userDAO');
 
 async function signup(first_name, last_name, email, password) {
   // email not include @ and .
-  if (!email.includes('@') || !email.includes('.')) {
+  // if (!email.includes('@') || !email.includes('.')) {
+  //   throw new Error('EMAIL_INVALID');
+  // }
+  const emailregex = /\S+@\S+\.\S+/;
+  if (!emailregex.test(email)) {
     throw new Error('EMAIL_INVALID');
   }
   // email 주소 중복
   const existUSER = await userDAO.existUser(email);
   if (existUSER) {
-    throw new Error('EMAIL_INVALID');
+    throw new Error('EMAIL_DUPLICATE');
   }
 
-  // password 대문자와 숫자를 하나 이상 포함 and 6자 이상
-  if (password.length < 6) {
+  const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
+  console.log(pwregex.test(password));
+  if (!pwregex.test(password)) {
     throw new Error('PASSWORD_INVALID');
   }
-  // const regex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
-  // console.log(regex.test(password));
-  // if (!regex.test(password)) {
-  //   throw new Error('PASSWORD_INVALID');
-  // }
 
   // 비밀번호 암호화
   const hashed_password = bcrypt.hashSync(password, bcrypt.genSaltSync());
