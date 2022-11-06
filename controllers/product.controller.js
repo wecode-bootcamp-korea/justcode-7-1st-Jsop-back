@@ -6,7 +6,6 @@ async function createProduct(req, res) {
 
   const product = { title, img_url, description, category, price, properties };
   myUtil.checkDataIsNotEmpty(product);
-  console.log(`req.body :`, req.body);
   await productServ.createProduct(product);
   res.status(201).json('created product');
 }

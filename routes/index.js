@@ -9,8 +9,8 @@ const orderRouter = require('./order.route');
 const router = express.Router();
 
 router.use(userRouter);
-router.use('/product', productRouter);
 router.use(filterRouter);
+router.use('/products', productRouter);
 router.use('/', orderRouter);
 router.use(middleware.errorHandler);
 // router.use(otherRouter);

@@ -149,7 +149,7 @@ async function getAllProduct() {
     JOIN(
       SELECT
         item_id,
-        GROUP_CONCAT(JSON_ARRAY(size, price) order by item_size_price.id) AS price
+        GROUP_CONCAT(JSON_ARRAY(size, price, item_size_price.id) order by item_size_price.id) AS price
       FROM
         item_size_price
         LEFT JOIN size ON size.id = item_size_price.size_id
