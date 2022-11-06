@@ -22,9 +22,17 @@ async function findUserByEmail(email) {
   return userInfo;
 }
 
+async function findUserById(userId) {
+  const [userInfo] = await dataSource.query(`
+    SELECT id, first_name, last_name, email FROM users WHERE id = '${userId}'
+  `);
+  return userInfo;
+}
+
 module.exports = {
   findUserByEmail,
   existUser,
   createUser,
   findUserByEmail,
+  findUserById,
 };

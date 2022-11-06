@@ -52,7 +52,6 @@ async function createProduct(product) {
 
 async function getAllProduct() {
   const result = await itemDao.getAllProduct();
-  console.log(`result :`, result);
   return result;
 }
 
