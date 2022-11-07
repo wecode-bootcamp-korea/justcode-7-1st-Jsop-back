@@ -1,10 +1,10 @@
-const cartService = require('../services/cartService');
+const cartService = require('../services/cart.service');
 
 // 카트에 담기
 const addToCart = async (req, res) => {
   try {
     const { item_size_id, quantity } = req.body;
-    const userId = req.user.id;
+    const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
     const REQUIRED_KEYS = { userId, item_size_id, quantity };
@@ -28,7 +28,7 @@ const addToCart = async (req, res) => {
 // 카트 보기
 const showToCart = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
     const REQUIRED_KEYS = { userId };
@@ -53,7 +53,7 @@ const showToCart = async (req, res) => {
 const editToCart = async (req, res) => {
   try {
     const { item_size_id, quantity } = req.body;
-    const userId = req.user.id;
+    const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
     const REQUIRED_KEYS = { item_size_id, quantity };
@@ -78,7 +78,7 @@ const editToCart = async (req, res) => {
 const deleteToCart = async (req, res) => {
   try {
     const { cart_item_id } = req.body;
-    const userId = req.user.id;
+    const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
     const REQUIRED_KEYS = { userId, cart_item_id };

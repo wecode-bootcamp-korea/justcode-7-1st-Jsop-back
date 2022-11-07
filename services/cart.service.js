@@ -1,4 +1,4 @@
-const cartDao = require('../models/cartDao');
+const cartDao = require('../models/cart.dao');
 
 // 카트에 담기
 const addToCart = async (userId, item_size_id, quantity) => {

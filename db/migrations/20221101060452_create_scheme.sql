@@ -64,12 +64,21 @@ CREATE TABLE `properties` (
   `content` varchar(50) NOT NULL COMMENT 'ex) 모든 피부, 메이크업을 한 피부, 진정된, 생기있는'
 );
 
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `order_number` varchar(150) UNIQUE NOT NULL,
   `total_price` decimal NOT NULL,
   `users_id` integer COMMENT '주문자 ID',
-  `address` varchar(150) COMMENT '주문 주소'
+  `address` varchar(150) COMMENT '주문 주소',
+  `created_at` timestamp default CURRENT_TIMESTAMP NOT NULL COMMENT '생성 날짜'
+);
+
+CREATE TABLE `order_contract` (
+  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `user_id` integer UNIQUE,
+  `zipcode` varchar(10) NOT NULL,
+  `street_address` varchar(150) COMMENT '주문 주소',
+  `supplimental_address` varchar(150) COMMENT '주문 주소'
 );
 
 CREATE TABLE `size` (
@@ -80,7 +89,7 @@ CREATE TABLE `size` (
 CREATE TABLE `item_properties` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `item_id` integer,
-  `properties_id` integer COMMENT '주문자 ID'
+  `properties_id` integer
 );
 
 CREATE TABLE `order_item` (
@@ -116,13 +125,15 @@ ALTER TABLE `property_types` ADD FOREIGN KEY (`property_type_contents_id`) REFER
 
 ALTER TABLE `properties` ADD FOREIGN KEY (`property_type_contents_id`) REFERENCES `property_type_contents` (`id`);
 
-ALTER TABLE `order` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+ALTER TABLE `orders` ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `order_contract` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `item_properties` ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
 
 ALTER TABLE `item_properties` ADD FOREIGN KEY (`properties_id`) REFERENCES `properties` (`id`);
 
-ALTER TABLE `order_item` ADD FOREIGN KEY (`order_id`) REFERENCES `order` (`id`);
+ALTER TABLE `order_item` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 
 ALTER TABLE `order_item` ADD FOREIGN KEY (`item_size_id`) REFERENCES `item_size_price` (`id`);
 
@@ -133,12 +144,13 @@ DROP TABLE `users_address`;
 DROP TABLE `item`;
 DROP TABLE `item_size_price`;
 DROP TABLE `cart_item`;
+DROP TABLE `order_contract`;
 DROP TABLE `1_level_category`;
 DROP TABLE `2_level_category`;
 DROP TABLE `property_types`;
 DROP TABLE `property_type_contents`;
 DROP TABLE `properties`;
-DROP TABLE `order`;
+DROP TABLE `orders`;
 DROP TABLE `size`;
 DROP TABLE `item_properties`;
 DROP TABLE `order_item`;

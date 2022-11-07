@@ -17,7 +17,6 @@ const showToCart = async userId => {
   const showList = await dataSource.query(
     `SELECT
     cart_item.id AS cart_item_id,
-    cart_item.users_id,
     cart_item.item_size_id,
     item.title AS title,
     item.img_url AS image,

@@ -20,7 +20,7 @@ describe("상품 생성", () => {
   items.forEach((item) => {
     test("상품 생성", async () => {
       await request(app)
-        .post("/product")
+        .post("/products")
         .send(item)
         .expect(201);
     });
