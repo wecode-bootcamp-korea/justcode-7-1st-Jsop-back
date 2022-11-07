@@ -1,22 +1,21 @@
 const cartService = require('../services/cart.service');
+const myUtil = require('../utils/myutils.js');
 
 // 카트에 담기
-const addToCart = async (req, res) => {
+const createCart = async (req, res) => {
   try {
     const { item_size_id, quantity } = req.body;
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-    const REQUIRED_KEYS = { userId, item_size_id, quantity };
-    Object.keys(REQUIRED_KEYS).map(key => {
-      if (!REQUIRED_KEYS[key]) {
-        const error = new Error(`KEY_ERROR: ${key}`);
-        error.statusCode = 400;
-        throw error;
-      }
+
+    myUtil.checkDataIsNotEmpty({
+      userId,
+      item_size_id,
+      quantity,
     });
 
-    await cartService.addToCart(userId, item_size_id, quantity);
+    await cartService.createCart(userId, item_size_id, quantity);
 
     res.status(201).json({ message: 'ADD_SUCCESSFULLY' });
   } catch (err) {
@@ -26,21 +25,16 @@ const addToCart = async (req, res) => {
 };
 
 // 카트 보기
-const showToCart = async (req, res) => {
+const findCartByUserId = async (req, res) => {
   try {
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-    const REQUIRED_KEYS = { userId };
-    Object.keys(REQUIRED_KEYS).map(key => {
-      if (!REQUIRED_KEYS[key]) {
-        const error = new Error(`KEY_ERROR: ${key}`);
-        error.statusCode = 400;
-        throw error;
-      }
+    myUtil.checkDataIsNotEmpty({
+      userId,
     });
 
-    const cartList = await cartService.showToCart(userId);
+    const cartList = await cartService.findCartByUserId(userId);
 
     res.status(200).json({ message: 'SHOW_CARTLIST', data: cartList });
   } catch (err) {
@@ -50,22 +44,19 @@ const showToCart = async (req, res) => {
 };
 
 // 카트 내역 수정하기
-const editToCart = async (req, res) => {
+const updateCart = async (req, res) => {
   try {
     const { item_size_id, quantity } = req.body;
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-    const REQUIRED_KEYS = { item_size_id, quantity };
-    Object.keys(REQUIRED_KEYS).map(key => {
-      if (!REQUIRED_KEYS[key]) {
-        const error = new Error(`KEY_ERROR: ${key}`);
-        error.statusCode = 400;
-        throw error;
-      }
+    myUtil.checkDataIsNotEmpty({
+      userId,
+      item_size_id,
+      quantity,
     });
 
-    await cartService.editToCart(userId, item_size_id, quantity);
+    await cartService.updateCart(userId, item_size_id, quantity);
 
     res.status(201).json({ message: 'EDIT_SUCCESSFULLY' });
   } catch (err) {
@@ -75,22 +66,18 @@ const editToCart = async (req, res) => {
 };
 
 // 카트 내 아이템 삭제하기
-const deleteToCart = async (req, res) => {
+const deleteCart = async (req, res) => {
   try {
     const { cart_item_id } = req.body;
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-    const REQUIRED_KEYS = { userId, cart_item_id };
-    Object.keys(REQUIRED_KEYS).map(key => {
-      if (!REQUIRED_KEYS[key]) {
-        const error = new Error(`KEY_ERROR: ${key}`);
-        error.statusCode = 400;
-        throw error;
-      }
+    myUtil.checkDataIsNotEmpty({
+      userId,
+      cart_item_id,
     });
 
-    await cartService.deleteToCart(userId, cart_item_id);
+    await cartService.deleteCart(userId, cart_item_id);
 
     res.status(201).json({ message: 'DELETE_SUCCESSFULLY' });
   } catch (err) {
@@ -99,4 +86,4 @@ const deleteToCart = async (req, res) => {
   }
 };
 
-module.exports = { addToCart, showToCart, editToCart, deleteToCart };
+module.exports = { createCart, findCartByUserId, updateCart, deleteCart };
