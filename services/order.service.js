@@ -40,14 +40,13 @@ async function createOrder(userId) {
   await orderDao.deleteAllCartItems(userId);
 }
 
-async function findAllOrder(userId) {
-  const [contract] = await orderDao.findAllOrderByUserId(userId);
-  return contract;
+async function findAllOrderByUserId(userId) {
+  return await orderDao.findAllOrderByUserId(userId);
 }
 
 module.exports = {
   putOrderContract,
   findOrderContract,
   createOrder,
-  findAllOrder,
+  findAllOrderByUserId,
 };
