@@ -84,12 +84,21 @@ Table "properties"{
 }
 
 // 주문 테이블
-Table "order"{
+Table "orders"{
   "id" integer [pk, increment]
   "order_number" varchar(150) [not null, unique]
   "total_price" decimal [not null]
   "users_id" integer  [ref: > users.id, note: '주문자 ID']
   "address" varchar(150) [note: '주문 주소']
+  created_at "timestamp default CURRENT_TIMESTAMP" [not null, note:'생성 날짜']
+}
+
+Table "order_contract"{
+  "id" integer [pk, increment]
+  "user_id" integer [unique, ref: - U.id ]
+  "zipcode" varchar (10) [not null]
+  "street_address" varchar(150) [note: '주문 주소']
+  "supplimental_address" varchar(150) [note: '주문 주소']
 }
 
 Table "size" {
@@ -100,13 +109,13 @@ Table "size" {
 Table "item_properties"{
   "id" integer [pk, increment]
   "item_id" integer  [ref: > item.id]
-  "properties_id" integer [ref: > properties.id, note: '주문자 ID']
+  "properties_id" integer [ref: > properties.id]
 }
 
 // 주문 아이템 테이블
 Table "order_item"{
   "id" integer [pk, increment]
-  "order_id" integer  [ref: > order.id]
+  "order_id" integer  [ref: > orders.id]
   "item_size_id" integer  [ref: > item_size_price.id]
   "quantity" integer [not null]
 }
