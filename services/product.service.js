@@ -56,4 +56,21 @@ async function getAllProduct() {
   return result;
 }
 
-module.exports = { test, createProduct, getAllProduct };
+async function filter( level_1_cate, level_2_cate ) {
+  if (level_2_cate === "") {
+    const result = await itemDao.findProductByCategory1(level_1_cate);
+    console.log(`result :`, result);
+    return result;
+  } else {
+    const result = await itemDao.findProductByCategory2(level_2_cate);
+    console.log(`result :`, result);
+    return result;
+  }
+}
+
+async function searchById(Id) {
+  const result = await itemDao.searchById(Id);
+  return result;
+}
+
+module.exports = { test, createProduct, getAllProduct, filter, searchById };

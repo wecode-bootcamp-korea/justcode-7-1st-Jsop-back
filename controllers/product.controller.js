@@ -21,4 +21,16 @@ async function getAllProduct(req, res) {
   res.status(200).json(result);
 }
 
-module.exports = { createProduct, test, getAllProduct };
+async function filter(req, res) {
+  const level_1_cate = req.query.level_1_cate;
+  const level_2_cate = req.query.level_2_cate;
+  const result = await productServ.filter(level_1_cate, level_2_cate);
+  res.status(200).json(result);
+}
+
+async function search(req, res) {
+  const result = await productServ.searchById(req.params.Id);
+  res.status(200).json(result);
+}
+
+module.exports = { createProduct, test, getAllProduct, filter, search };
