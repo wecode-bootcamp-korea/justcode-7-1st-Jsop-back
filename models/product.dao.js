@@ -14,7 +14,19 @@ async function createProduct(product) {
 }
 
 async function test() {
-  const result = await findCategory(1, '스킨 케어');
+  return await database.query(
+    `
+    SELECT
+      EXISTS(
+        SELECT
+          *
+        FROM
+          cart_item
+        WHERE
+          users_id = 1
+      ) AS Result;
+    `
+  );
 }
 
 // 카테고리가 존재하는 지 확인
@@ -137,15 +149,19 @@ async function getAllProduct() {
     item.img_url,
     item.description,
     CONCAT('[',price,']') as price,
-    1_level_category.content as level_1_category,
-    2_level_category.content as level_2_category,
+    JSON_OBJECT(
+      'level_1_category',
+      1_level_category.content,
+      'level_2_category',
+      2_level_category.content
+    ) AS category,
     GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
   FROM
     item
     JOIN(
       SELECT
         item_id,
-        GROUP_CONCAT(JSON_ARRAY(size, price) order by item_size_price.id) AS price
+        GROUP_CONCAT(JSON_ARRAY(size, price, item_size_price.id) order by item_size_price.id) AS price
       FROM
         item_size_price
         LEFT JOIN size ON size.id = item_size_price.size_id

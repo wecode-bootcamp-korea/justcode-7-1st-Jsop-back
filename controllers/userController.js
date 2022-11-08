@@ -36,4 +36,13 @@ async function loginController(req, res) {
   }
 }
 
-module.exports = { signupController, loginController };
+async function getMe(req, res) {
+  const userInfo = await userService.getMe(req.userInfo.id);
+  res.json({userInfo});
+}
+
+module.exports = {
+  signupController,
+  loginController,
+  getMe,
+};
