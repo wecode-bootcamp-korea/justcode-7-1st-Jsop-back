@@ -32,7 +32,7 @@ async function getProduct(req, res) {
   res.status(200).json(result);
 }
 
-async function search(req, res) {
+async function findProductById(req, res) {
   const result = await productServ.findProductById(req.params.Id);
   res.status(200).json(result);
 }
@@ -41,5 +41,5 @@ module.exports = {
   createProduct,
   test,
   getProduct,
-  search,
+  findProductById,
 };
