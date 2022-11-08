@@ -20,4 +20,27 @@ async function getAllProduct(req, res) {
   res.status(200).json(result);
 }
 
-module.exports = { createProduct, test, getAllProduct };
+async function findProductByCategory(req, res) {
+  var level_1_cate = req.query[`level-1-cate`];
+  var level_2_cate = req.query[`level-2-cate`];
+  level_1_cate = level_1_cate.replace('-', ' ');
+  level_2_cate = level_2_cate.replace('-', ' ');
+  const result = await productServ.findProductByCategory(
+    level_1_cate,
+    level_2_cate
+  );
+  res.status(200).json(result);
+}
+
+async function search(req, res) {
+  const result = await productServ.findProductById(req.params.Id);
+  res.status(200).json(result);
+}
+
+module.exports = {
+  createProduct,
+  test,
+  getAllProduct,
+  findProductByCategory,
+  search,
+};
