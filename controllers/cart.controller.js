@@ -16,7 +16,7 @@ const createCart = async (req, res) => {
 
     await cartService.createCart(userId, item_size_id, quantity);
 
-    res.status(201).json({ message: 'ADD_SUCCESSFULLY' });
+    res.status(201).json({ message: 'CREATE_SUCCESSFULLY' });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });
@@ -34,7 +34,7 @@ const findCartByUserId = async (req, res) => {
 
     const cartList = await cartService.findCartByUserId(userId);
 
-    res.status(200).json({ message: 'SHOW_CARTLIST', data: cartList });
+    res.status(200).json({ message: 'READ_CARTLIST', data: cartList });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });
@@ -55,7 +55,7 @@ const updateCart = async (req, res) => {
 
     await cartService.updateCart(userId, item_size_id, quantity);
 
-    res.status(201).json({ message: 'EDIT_SUCCESSFULLY' });
+    res.status(201).json({ message: 'UPDATE_SUCCESSFULLY' });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });

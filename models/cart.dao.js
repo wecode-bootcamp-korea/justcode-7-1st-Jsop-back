@@ -2,7 +2,7 @@ const dataSource = require('./database');
 
 // 카트에 담기
 const createCart = async (userId, item_size_id, quantity) => {
-  const addList = await dataSource.query(
+  const createList = await dataSource.query(
     `
       INSERT INTO
         cart_item
@@ -13,12 +13,12 @@ const createCart = async (userId, item_size_id, quantity) => {
     `
   );
 
-  return addList;
+  return createList;
 };
 
 // 카트 보기
 const findCartByUserId = async userId => {
-  const showList = await dataSource.query(
+  const readList = await dataSource.query(
     `
       SELECT
         cart_item.id AS cart_item_id,
@@ -43,12 +43,12 @@ const findCartByUserId = async userId => {
     `
   );
 
-  return showList;
+  return readList;
 };
 
 // 카트 내역 수정하기
 const updateCart = async (userId, item_size_id, quantity) => {
-  const editList = await dataSource.query(
+  const updateList = await dataSource.query(
     `
       UPDATE
         cart_item
@@ -62,7 +62,7 @@ const updateCart = async (userId, item_size_id, quantity) => {
     `
   );
 
-  return editList;
+  return updateList;
 };
 
 // 카트 내 아이템 삭제하기
