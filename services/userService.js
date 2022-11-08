@@ -16,7 +16,7 @@ async function signup(first_name, last_name, email, password) {
 
   const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
   if (!pwregex.test(password)) {
-    throw new Error('PASSWORD_INVALID');
+    throw new Error('비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.');
   }
 
   // 비밀번호 암호화
@@ -32,7 +32,6 @@ async function signup(first_name, last_name, email, password) {
 
 async function login(email, password) {
   // email이 형식이 다를 때
-
   if (!email.includes('@') || !email.includes('.')) {
     throw new Error('EMAIL_INVALID');
   }

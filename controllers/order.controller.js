@@ -30,8 +30,8 @@ async function createOrder(req, res) {
 }
 
 async function findAllOrder(req, res) {
-  const result = await orderServ.findAllOrder(req.userInfo.id);
-  res.status(201).json({ result });
+  const result = await orderServ.findAllOrderByUserId(req.userInfo.id);
+  res.status(200).json({ result });
 }
 
 module.exports = {
