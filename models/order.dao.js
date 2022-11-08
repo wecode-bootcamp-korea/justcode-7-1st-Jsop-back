@@ -135,21 +135,6 @@ async function findAllOrderByUserId(userId) {
   );
 }
 
-async function findAllOrderByUserId(userId) {
-  return await database.query(
-    `
-      SELECT
-        total_price,
-        address,
-        created_at
-      FROM
-        orders
-      WHERE
-        users_id = ${userId}
-    `
-  );
-}
-
 module.exports = {
   createOrderContract,
   findOrderContract,
