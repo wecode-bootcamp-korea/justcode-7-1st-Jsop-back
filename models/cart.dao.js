@@ -18,7 +18,7 @@ const createCart = async (userId, item_size_id, quantity) => {
 
 // 카트 보기
 const findCartByUserId = async userId => {
-  const readList = await dataSource.query(
+  const findList = await dataSource.query(
     `
       SELECT
         cart_item.id AS cart_item_id,
@@ -43,7 +43,7 @@ const findCartByUserId = async userId => {
     `
   );
 
-  return readList;
+  return findList;
 };
 
 // 카트 내역 수정하기

@@ -32,9 +32,9 @@ const findCartByUserId = async (req, res) => {
       userId,
     });
 
-    const cartList = await cartService.findCartByUserId(userId);
+    const findList = await cartService.findCartByUserId(userId);
 
-    res.status(200).json({ message: 'READ_CARTLIST', data: cartList });
+    res.status(200).json({ message: 'FIND_CARTLIST', data: findList });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });

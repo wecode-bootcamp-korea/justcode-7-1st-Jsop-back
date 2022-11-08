@@ -8,8 +8,8 @@ const createCart = async (userId, item_size_id, quantity) => {
 
 // 카트 보기
 const findCartByUserId = async userId => {
-  const readList = await cartDao.findCartByUserId(userId);
-  return readList;
+  const findList = await cartDao.findCartByUserId(userId);
+  return findList;
 };
 
 // 카트 내역 수정하기
