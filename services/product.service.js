@@ -56,7 +56,7 @@ async function getAllProduct() {
   return result;
 }
 
-async function filter( level_1_cate, level_2_cate ) {
+async function findProductByCategory( level_1_cate, level_2_cate ) {
   if (level_2_cate === "") {
     const result = await itemDao.findProductByCategory1(level_1_cate);
     console.log(`result :`, result);
@@ -68,9 +68,9 @@ async function filter( level_1_cate, level_2_cate ) {
   }
 }
 
-async function searchById(Id) {
-  const result = await itemDao.searchById(Id);
+async function findProductById(Id) {
+  const result = await itemDao.findProductById(Id);
   return result;
 }
 
-module.exports = { test, createProduct, getAllProduct, filter, searchById };
+module.exports = { test, createProduct, getAllProduct, findProductByCategory, findProductById };

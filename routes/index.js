@@ -7,7 +7,7 @@ const productRouter = require('./product.route');
 const router = express.Router();
 
 router.use(userRouter);
-router.use('/product', productRouter);
+router.use('/products', productRouter);
 router.use(middleware.errorHandler);
 // router.use(otherRouter);
 

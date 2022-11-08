@@ -5,7 +5,7 @@ const { asyncWrap } = require('../utils/myutils');
 const router = express.Router();
 
 router.get('/test', asyncWrap(productCtl.test));
-router.get('/filter', asyncWrap(productCtl.filter));
+router.get('', asyncWrap(productCtl.findProductByCategory));
 router.get('/:Id', asyncWrap(productCtl.search));
 
 /*
