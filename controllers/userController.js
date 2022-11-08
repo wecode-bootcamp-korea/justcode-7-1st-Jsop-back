@@ -10,7 +10,7 @@ async function signupController(req, res) {
       }
     });
 
-    userService.signup(first_name, last_name, email, password);
+    await userService.signup(first_name, last_name, email, password);
     res.json({ message: 'USER_CREATED' });
   } catch (err) {
     console.log(err);
