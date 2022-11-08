@@ -15,20 +15,20 @@ async function test(req, res) {
   res.status(200).json(result);
 }
 
-async function getAllProduct(req, res) {
-  const result = await productServ.getAllProduct();
-  res.status(200).json(result);
-}
-
-async function findProductByCategory(req, res) {
-  var level_1_cate = req.query[`level-1-cate`];
-  var level_2_cate = req.query[`level-2-cate`];
-  level_1_cate = level_1_cate.replace('-', ' ');
-  level_2_cate = level_2_cate.replace('-', ' ');
-  const result = await productServ.findProductByCategory(
-    level_1_cate,
-    level_2_cate
-  );
+async function getProduct(req, res) {
+  let result;
+  if (myUtil.isObjectEmpty(req.query)) {
+    result = await productServ.getAllProduct();
+  } else {
+    let level_1_cate = req.query[`level-1-cate`];
+    let level_2_cate = req.query[`level-2-cate`];
+    level_1_cate = level_1_cate.replace('-', ' ');
+    level_2_cate = level_2_cate.replace('-', ' ');
+    result = await productServ.findProductByCategory(
+      level_1_cate,
+      level_2_cate
+    );
+  }
   res.status(200).json(result);
 }
 
@@ -40,7 +40,6 @@ async function search(req, res) {
 module.exports = {
   createProduct,
   test,
-  getAllProduct,
-  findProductByCategory,
+  getProduct,
   search,
 };

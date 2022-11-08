@@ -9,8 +9,12 @@ const {
 
 const router = express.Router();
 
-router.post('/signup', signupController);
-router.post('/login', loginController);
-router.get('/getme', mw.authMiddleware, utils.asyncWrap(getMe));
+router.post('/signup', utils.asyncWrap(signupController));
+router.post('/login', utils.asyncWrap(loginController));
+router.get(
+  '/getme',
+  utils.asyncWrap(mw.authMiddleware),
+  utils.asyncWrap(getMe)
+);
 
 module.exports = router;
