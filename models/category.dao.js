@@ -9,7 +9,10 @@ async function getAllCategories() {
       CONCAT('[', GROUP_CONCAT(JSON_OBJECT("id", 2_level_category.id, "content", 2_level_category.content)),']') AS sub_category
     FROM
       1_level_category
-      JOIN 2_level_category ON 2_level_category.1_level_category_id = 1_level_category.id
+    JOIN
+      2_level_category
+    ON
+      2_level_category.1_level_category_id = 1_level_category.id
     GROUP BY id, content
     `
   ).then(categories => {

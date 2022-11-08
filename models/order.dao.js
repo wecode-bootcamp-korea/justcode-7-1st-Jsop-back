@@ -7,7 +7,6 @@ async function createOrderContract(userId, zipcode, streetAddress, supAddress) {
           order_contract(user_id, zipcode, street_address, supplimental_address)
         VALUES
           (?, ?, ?, ?)
-
     `,
     [userId, zipcode, streetAddress, supAddress]
   );
@@ -46,7 +45,7 @@ async function updateOrderContract(userId, zipcode, streetAddress, supAddress) {
 async function createOrder(userId) {
   return await database.query(
     `
-        INSERT INTO
+      INSERT INTO
         orders ( order_number, total_price, users_id, orders.address)
       SELECT
         concat(cart_item.users_id,"-",now()) as order_number,
@@ -103,7 +102,7 @@ async function existCartItemsByUserId(userId) {
   return await database
     .query(
       `
-    SELECT
+      SELECT
       EXISTS(
         SELECT
           *
@@ -112,7 +111,7 @@ async function existCartItemsByUserId(userId) {
         WHERE
           users_id = ${userId}
       ) AS Result;
-  `
+      `
     )
     .then(v => {
       const [result] = v;

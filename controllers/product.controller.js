@@ -33,7 +33,7 @@ async function getProduct(req, res) {
 }
 
 async function findProductById(req, res) {
-  const result = await productServ.findProductById(req.params.Id);
+  const result = await productServ.findProductById(req.params.id);
   res.status(200).json(result);
 }
 

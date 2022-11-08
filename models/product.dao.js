@@ -205,26 +205,31 @@ async function getAllProduct() {
 
 async function findProductByCategory1(level_1_cate) {
   const result = await database.query(`
-  SELECT item.id,
-         item.title,
-         item.img_url,
-         item.description,
-         CONCAT('[',price,']') as price,
-         JSON_OBJECT(
-          'level_1_category',
-          1_level_category.content,
-          'level_2_category',
-          2_level_category.content
-        ) AS category,
-         GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
-  FROM item
+  SELECT
+    item.id,
+    item.title,
+    item.img_url,
+    item.description,
+    CONCAT('[',price,']') as price,
+    JSON_OBJECT(
+      'level_1_category',
+      1_level_category.content,
+      'level_2_category',
+      2_level_category.content
+    ) AS category,
+    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
+  FROM
+    item
   JOIN(
       SELECT
         item_id,
         GROUP_CONCAT(JSON_ARRAY(size, price, item_size_price.id) order by item_size_price.id) AS price
-      FROM item_size_price
-      LEFT JOIN size ON size.id = item_size_price.size_id
-      GROUP BY item_id
+      FROM
+        item_size_price
+      LEFT JOIN
+        size ON size.id = item_size_price.size_id
+      GROUP BY
+        item_id
       ) price ON price.item_id = item.id
   JOIN 2_level_category ON 2_level_category.id = item.2_level_category_id
   JOIN 1_level_category ON 1_level_category.id = 2_level_category.1_level_category_id
@@ -241,7 +246,7 @@ async function findProductByCategory1(level_1_cate) {
       JOIN property_type_contents ON property_type_contents.id = properties.property_type_contents_id
       GROUP BY item.id, property_type_contents.content
       ) item_type_property ON item_type_property.item_id = item.id
-  WHERE type_content = property_type_contents.content 
+  WHERE type_content = property_type_contents.content
   AND 1_level_category.content = '${level_1_cate}'
   GROUP BY
       item.id,
@@ -261,19 +266,21 @@ async function findProductByCategory1(level_1_cate) {
 
 async function findProductByCategory2(level_2_cate) {
   const result = await database.query(`
-  SELECT item.id,
-         item.title,
-         item.img_url,
-         item.description,
-         CONCAT('[',price,']') as price,
-         JSON_OBJECT(
-          'level_1_category',
-          1_level_category.content,
-          'level_2_category',
-          2_level_category.content
-        ) AS category,
-         GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
-  FROM item
+  SELECT
+    item.id,
+    item.title,
+    item.img_url,
+    item.description,
+    CONCAT('[',price,']') as price,
+    JSON_OBJECT(
+      'level_1_category',
+      1_level_category.content,
+      'level_2_category',
+      2_level_category.content
+    ) AS category,
+    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
+  FROM
+    item
   JOIN(
       SELECT
         item_id,
@@ -318,19 +325,21 @@ async function findProductByCategory2(level_2_cate) {
 async function findProductById(Id) {
   const result = await database.query(`
   SELECT
-  item.id,
-  item.title,
-  item.img_url,
-  item.description,
-  CONCAT('[',price,']') as price,
-  JSON_OBJECT(
-    'level_1_category',
-    1_level_category.content,
-    'level_2_category',
-    2_level_category.content
-  ) AS category,
-  GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
-FROM
+    item.id,
+    item.title,
+    item.img_url,
+    item.description,
+    CONCAT('[',price,']') as price,
+    JSON_OBJECT(
+      'level_1_category',
+      1_level_category.content,
+      'level_2_category',
+      2_level_category.content
+    ) AS category,
+    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property)
+  ORDER BY
+    property_types.id) AS properties
+  FROM
   item
   JOIN(
     SELECT
