@@ -3,7 +3,7 @@ const middleware = require('../middlewares/middleware');
 const userRouter = require('./user');
 const productRouter = require('./product.route');
 const categoryRouter = require('./category.route');
-const cartRouter = require('./cartRouter');
+const cartRouter = require('./cart.router');
 const orderRouter = require('./order.route');
 
 const router = express.Router();

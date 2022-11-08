@@ -8,7 +8,6 @@ const createCart = async (req, res) => {
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-
     myUtil.checkDataIsNotEmpty({
       userId,
       item_size_id,
@@ -29,7 +28,6 @@ const findCartByUserId = async (req, res) => {
   try {
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
     });
@@ -49,7 +47,6 @@ const updateCart = async (req, res) => {
     const { item_size_id, quantity } = req.body;
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
       item_size_id,
@@ -71,7 +68,6 @@ const deleteCart = async (req, res) => {
     const { cart_item_id } = req.body;
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
       cart_item_id,

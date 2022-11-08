@@ -3,11 +3,14 @@ const dataSource = require('./database');
 // 카트에 담기
 const createCart = async (userId, item_size_id, quantity) => {
   const addList = await dataSource.query(
-    `INSERT INTO
-      cart_item
-      (users_id, item_size_id , quantity)
-    VALUES
-      (${userId},${item_size_id},${quantity})`
+    `
+      INSERT INTO
+        cart_item
+        (users_id, item_size_id , quantity)
+      VALUES
+      (${userId},${item_size_id},${quantity})
+      
+    `
   );
 
   return addList;
@@ -16,25 +19,28 @@ const createCart = async (userId, item_size_id, quantity) => {
 // 카트 보기
 const findCartByUserId = async userId => {
   const showList = await dataSource.query(
-    `SELECT
-      cart_item.id AS cart_item_id,
-      item_size_price.item_id,
-      cart_item.item_size_id,
-      item.title AS title,
-      item.img_url AS image,
-      size.size,
-      cart_item.quantity,
-      item_size_price.price
-    FROM
-      item, size, cart_item, item_size_price
-    WHERE
-      item.id = item_size_price.item_id
-    AND
-      size.id = item_size_price.size_id
-    AND
-      cart_item.item_size_id = item_size_price.id
-    AND
-      users_id = ${userId}`
+    `
+      SELECT
+        cart_item.id AS cart_item_id,
+        item_size_price.item_id,
+        cart_item.item_size_id,
+        item.title AS title,
+        item.img_url AS image,
+        size.size,
+        cart_item.quantity,
+        item_size_price.price
+      FROM
+        item, size, cart_item, item_size_price
+      WHERE
+        item.id = item_size_price.item_id
+      AND
+        size.id = item_size_price.size_id
+      AND
+        cart_item.item_size_id = item_size_price.id
+      AND
+        users_id = ${userId}
+
+    `
   );
 
   return showList;
@@ -43,14 +49,17 @@ const findCartByUserId = async userId => {
 // 카트 내역 수정하기
 const updateCart = async (userId, item_size_id, quantity) => {
   const editList = await dataSource.query(
-    `UPDATE
-      cart_item
+    `
+      UPDATE
+        cart_item
       SET
         quantity = ${quantity}
       WHERE
         item_size_id = ${item_size_id}
       AND
-        users_id = ${userId}`
+        users_id = ${userId}
+
+    `
   );
 
   return editList;
@@ -59,12 +68,15 @@ const updateCart = async (userId, item_size_id, quantity) => {
 // 카트 내 아이템 삭제하기
 const deleteCart = async (userId, cart_item_id) => {
   const deleteList = await dataSource.query(
-    `DELETE FROM
-      cart_item
-    WHERE
-      id = ${cart_item_id}
-    AND
-      users_id = ${userId}`
+    `
+      DELETE FROM
+        cart_item
+     WHERE
+        id = ${cart_item_id}
+      AND
+        users_id = ${userId}
+        
+    `
   );
 
   return deleteList;

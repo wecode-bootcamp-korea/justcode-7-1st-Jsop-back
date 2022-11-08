@@ -131,7 +131,8 @@ async function findAllOrderByUserId(userId) {
         orders
       WHERE
         users_id = ${userId}
-    `);
+    `
+  );
 }
 
 async function findAllOrderByUserId(userId) {
@@ -145,7 +146,8 @@ async function findAllOrderByUserId(userId) {
         orders
       WHERE
         users_id = ${userId}
-    `);
+    `
+  );
 }
 
 module.exports = {
