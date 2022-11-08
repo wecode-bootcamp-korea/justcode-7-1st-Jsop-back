@@ -4,9 +4,6 @@ const userDAO = require('../models/userDAO');
 
 async function signup(first_name, last_name, email, password) {
   // email not include @ and .
-  // if (!email.includes('@') || !email.includes('.')) {
-  //   throw new Error('EMAIL_INVALID');
-  // }
   const emailregex = /\S+@\S+\.\S+/;
   if (!emailregex.test(email)) {
     throw new Error('EMAIL_INVALID');
@@ -18,7 +15,6 @@ async function signup(first_name, last_name, email, password) {
   }
 
   const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
-  console.log(pwregex.test(password));
   if (!pwregex.test(password)) {
     throw new Error('비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.');
   }

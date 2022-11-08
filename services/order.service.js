@@ -24,18 +24,21 @@ async function createOrder(userId) {
   const bExistCartItems = await orderDao.existCartItemsByUserId(userId);
   // 카트 내 리스트가 없으면 빠꾸
   if (!bExistCartItems) {
-    throw {status: 400, message: "카트 내 리스트가 없습니다."}
+    throw { status: 400, message: '카트 내 리스트가 없습니다.' };
   }
   // 주문 기입서 확인
   const [contract] = await orderDao.findOrderContract(userId);
   if (!contract) {
     // 주문 기입서에 다 작성되어 있지 않으면 빠꾸
-    throw {status: 400, message: "주문 주소가 작성되지 않았습니다."}
+    throw { status: 400, message: '주문 주소가 작성되지 않았습니다.' };
   }
   // order 생성
   const orderResult = await orderDao.createOrder(userId);
   // order Item 생성
-  const createResult = await orderDao.createOrderItems(userId, orderResult.insertId);
+  const createResult = await orderDao.createOrderItems(
+    userId,
+    orderResult.insertId
+  );
   // 기존 카트 아이템 제거
   await orderDao.deleteAllCartItems(userId);
 }

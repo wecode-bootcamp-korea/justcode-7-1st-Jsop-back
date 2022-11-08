@@ -100,8 +100,9 @@ async function deleteAllCartItems(userId) {
 }
 
 async function existCartItemsByUserId(userId) {
-  return await database.query(
-    `
+  return await database
+    .query(
+      `
     SELECT
       EXISTS(
         SELECT
@@ -112,11 +113,11 @@ async function existCartItemsByUserId(userId) {
           users_id = ${userId}
       ) AS Result;
   `
-  ).then( v => {
+    )
+    .then(v => {
       const [result] = v;
       return !!Number(result.Result);
-    }
-  );
+    });
 }
 
 async function findAllOrderByUserId(userId) {
