@@ -1,6 +1,6 @@
 const express = require('express');
 const middleware = require('../middlewares/middleware');
-const userRouter = require('./user');
+const userRouter = require('./user.route');
 const productRouter = require('./product.route');
 const categoryRouter = require('./category.route');
 const cartRouter = require('./cart.router');

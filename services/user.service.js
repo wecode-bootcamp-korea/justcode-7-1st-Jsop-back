@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const userDAO = require('../models/userDAO');
+const userDAO = require('../models/user.dao');
 
 async function signup(first_name, last_name, email, password) {
   // email not include @ and .
@@ -16,7 +16,9 @@ async function signup(first_name, last_name, email, password) {
 
   const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
   if (!pwregex.test(password)) {
-    throw new Error('비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.');
+    throw new Error(
+      '비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.'
+    );
   }
 
   // 비밀번호 암호화

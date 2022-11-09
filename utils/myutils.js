@@ -14,4 +14,12 @@ function checkDataIsNotEmpty(targetData) {
   });
 }
 
-module.exports = { asyncWrap, checkDataIsNotEmpty };
+function isObjectEmpty(object) {
+  return Object.keys(object).length === 0;
+}
+
+module.exports = {
+  asyncWrap,
+  checkDataIsNotEmpty,
+  isObjectEmpty,
+};

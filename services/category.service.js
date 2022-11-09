@@ -6,4 +6,4 @@ async function getAllCategories() {
 
 module.exports = {
   getAllCategories,
-}
+};
