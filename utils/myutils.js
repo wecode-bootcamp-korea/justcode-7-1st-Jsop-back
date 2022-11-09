@@ -55,6 +55,7 @@ function morganCustomFormat(tokens, req, res) {
     'ms',
     `${blue('\nDATE\t|')} `,
     new Date().toLocaleTimeString(),
+    '\n',
   ].join('');
 }
 
