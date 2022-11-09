@@ -16,6 +16,41 @@ const createCart = async (userId, item_id, quantity) => {
   return createList;
 };
 
+const existCart = async (userId, item_id) => {
+  const result = await dataSource.query(
+    `
+      SELECT EXISTS (
+        SELECT * FROM
+          cart_item
+        WHERE
+          users_id = ${userId}
+        AND
+          item_size_id = ${item_id})
+        AS isExists 
+        
+    `
+  );
+
+  return +result[0].isExists;
+};
+
+const plusQuantity = async (userId, item_id) => {
+  const result = await dataSource.query(
+    `
+      UPDATE
+        cart_item 
+      SET
+        quantity = quantity + 1
+      WHERE
+        users_id = ${userId} 
+      AND
+        item_size_id = ${item_id}
+        
+    `
+  );
+  return result;
+};
+
 // 카트 보기
 const findCartByUserId = async userId => {
   const findList = await dataSource
@@ -71,13 +106,13 @@ const updateCart = async (userId, item_id, quantity) => {
 };
 
 // 카트 내 아이템 삭제하기
-const deleteCart = async (userId, cart_item_id) => {
+const deleteCart = async (userId, item_id) => {
   const deleteList = await dataSource.query(
     `
       DELETE FROM
         cart_item
      WHERE
-        id = ${cart_item_id}
+        item_size_id = ${item_id}
       AND
         users_id = ${userId}
         
@@ -87,4 +122,11 @@ const deleteCart = async (userId, cart_item_id) => {
   return deleteList;
 };
 
-module.exports = { createCart, findCartByUserId, updateCart, deleteCart };
+module.exports = {
+  createCart,
+  existCart,
+  plusQuantity,
+  findCartByUserId,
+  updateCart,
+  deleteCart,
+};

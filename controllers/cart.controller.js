@@ -65,15 +65,15 @@ const updateCart = async (req, res) => {
 // 카트 내 아이템 삭제하기
 const deleteCart = async (req, res) => {
   try {
-    const { cart_item_id } = req.body;
+    const { item_id } = req.body;
     const userId = req.userInfo.id;
 
     myUtil.checkDataIsNotEmpty({
       userId,
-      cart_item_id,
+      item_id,
     });
 
-    await cartService.deleteCart(userId, cart_item_id);
+    await cartService.deleteCart(userId, item_id);
 
     res.status(201).json({ message: 'DELETE_SUCCESSFULLY' });
   } catch (err) {
