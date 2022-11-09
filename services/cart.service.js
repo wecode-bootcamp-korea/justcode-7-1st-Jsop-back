@@ -2,20 +2,20 @@ const cartDao = require('../models/cart.dao');
 
 // 카트에 담기
 const createCart = async (userId, item_size_id, quantity) => {
-  const addList = await cartDao.createCart(userId, item_size_id, quantity);
-  return addList;
+  const createList = await cartDao.createCart(userId, item_size_id, quantity);
+  return createList;
 };
 
 // 카트 보기
 const findCartByUserId = async userId => {
-  const showList = await cartDao.findCartByUserId(userId);
-  return showList;
+  const findList = await cartDao.findCartByUserId(userId);
+  return findList;
 };
 
 // 카트 내역 수정하기
 const updateCart = async (userId, item_size_id, quantity) => {
-  const editList = await cartDao.updateCart(userId, item_size_id, quantity);
-  return editList;
+  const updateList = await cartDao.updateCart(userId, item_size_id, quantity);
+  return updateList;
 };
 
 // 카트 내 아이템 삭제하기

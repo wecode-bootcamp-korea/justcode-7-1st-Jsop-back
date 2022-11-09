@@ -8,7 +8,6 @@ const createCart = async (req, res) => {
     const userId = req.userInfo.id;
 
     // 필수 키값 존재 유무
-
     myUtil.checkDataIsNotEmpty({
       userId,
       item_size_id,
@@ -17,7 +16,7 @@ const createCart = async (req, res) => {
 
     await cartService.createCart(userId, item_size_id, quantity);
 
-    res.status(201).json({ message: 'ADD_SUCCESSFULLY' });
+    res.status(201).json({ message: 'CREATE_SUCCESSFULLY' });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });
@@ -29,14 +28,13 @@ const findCartByUserId = async (req, res) => {
   try {
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
     });
 
-    const cartList = await cartService.findCartByUserId(userId);
+    const findList = await cartService.findCartByUserId(userId);
 
-    res.status(200).json({ message: 'SHOW_CARTLIST', data: cartList });
+    res.status(200).json({ message: 'FIND_CARTLIST', data: findList });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });
@@ -49,7 +47,6 @@ const updateCart = async (req, res) => {
     const { item_size_id, quantity } = req.body;
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
       item_size_id,
@@ -58,7 +55,7 @@ const updateCart = async (req, res) => {
 
     await cartService.updateCart(userId, item_size_id, quantity);
 
-    res.status(201).json({ message: 'EDIT_SUCCESSFULLY' });
+    res.status(201).json({ message: 'UPDATE_SUCCESSFULLY' });
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err.message });
@@ -71,7 +68,6 @@ const deleteCart = async (req, res) => {
     const { cart_item_id } = req.body;
     const userId = req.userInfo.id;
 
-    // 필수 키값 존재 유무
     myUtil.checkDataIsNotEmpty({
       userId,
       cart_item_id,
