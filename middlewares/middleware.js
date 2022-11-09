@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { yellow, red, blue, green } = require('cli-color');
 
 async function authMiddleware(req, _, next) {
   const token = req.headers.authorization;
@@ -11,7 +12,7 @@ function decodeToken(token) {
   try {
     return jwt.verify(token, process.env.SECRET_KEY);
   } catch (err) {
-    console.log(`err: ${err}`);
+    console.log(`ERR\t| ${err}`);
     throw { status: 401, message: 'unauthorized' };
   }
 }
@@ -23,10 +24,10 @@ const errorHandler = (err, _1, res, _2) => {
     console.log(err.sqlMessage);
     responseInfo = { message: 'failed', status: 500, ...err };
   }
-  console.log('err LOG:', err);
+  console.log(`${red("ERR\t|")}`, err);
   res
     .status(responseInfo.status || 500)
-    .send({ message: responseInfo.message || '' });
+    .json({ message: responseInfo.message || '' });
 };
 
 module.exports = {
