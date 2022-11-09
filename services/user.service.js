@@ -6,19 +6,20 @@ async function signup(first_name, last_name, email, password) {
   // email not include @ and .
   const emailregex = /\S+@\S+\.\S+/;
   if (!emailregex.test(email)) {
-    throw new Error('EMAIL_INVALID');
+    throw { message: '아이디는 이메일 형식이여야 합니다.' };
   }
   // email 주소 중복
   const existUSER = await userDAO.existUser(email);
   if (existUSER) {
-    throw new Error('EMAIL_DUPLICATE');
+    throw { message: '이미 존재하는 아이디입니다.' };
   }
 
   const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
   if (!pwregex.test(password)) {
-    throw new Error(
-      '비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.'
-    );
+    throw {
+      message:
+        '비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.',
+    };
   }
 
   // 비밀번호 암호화
@@ -35,18 +36,18 @@ async function signup(first_name, last_name, email, password) {
 async function login(email, password) {
   // email이 형식이 다를 때
   if (!email.includes('@') || !email.includes('.')) {
-    throw new Error('EMAIL_INVALID');
+    throw { message: '아이디는 이메일 형식이여야 합니다.' };
   }
   // email이 존재하지 않을 때
   const findUserByEmail = await userDAO.findUserByEmail(email);
 
   if (!findUserByEmail) {
-    throw new Error('USER_DOES_NOT_EXIST');
+    throw { message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.' };
   }
   // 비밀번호가 틀림
   const isSame = bcrypt.compareSync(password, findUserByEmail.password);
   if (isSame === false) {
-    throw new Error('PASSWORD_WRONG');
+    throw { message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.' };
   }
 
   // 토큰 생성

@@ -19,7 +19,11 @@ async function createProduct(product) {
   console.log(`item :`, item);
 
   // 사이즈 관련 테이블 삽입
-  price.forEach(async element => {
+  price.forEach(async (element, idx) => {
+    // 사이즈 하나만 반영하도록 변경함.
+    if (idx > 0) {
+      return;
+    }
     const size = element[0];
     const price = element[1];
     // 사이즈 테이블 삽입
