@@ -1,8 +1,8 @@
 const cartDao = require('../models/cart.dao');
 
 // 카트에 담기
-const createCart = async (userId, item_size_id, quantity) => {
-  const createList = await cartDao.createCart(userId, item_size_id, quantity);
+const createCart = async (userId, item_id, quantity) => {
+  const createList = await cartDao.createCart(userId, item_id, quantity);
   return createList;
 };
 
@@ -13,8 +13,8 @@ const findCartByUserId = async userId => {
 };
 
 // 카트 내역 수정하기
-const updateCart = async (userId, item_size_id, quantity) => {
-  const updateList = await cartDao.updateCart(userId, item_size_id, quantity);
+const updateCart = async (userId, item_id, quantity) => {
+  const updateList = await cartDao.updateCart(userId, item_id, quantity);
   return updateList;
 };
 

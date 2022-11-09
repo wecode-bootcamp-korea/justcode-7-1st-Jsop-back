@@ -1,14 +1,14 @@
 const dataSource = require('./database');
 
 // 카트에 담기
-const createCart = async (userId, item_size_id, quantity) => {
+const createCart = async (userId, item_id, quantity) => {
   const createList = await dataSource.query(
     `
       INSERT INTO
         cart_item
         (users_id, item_size_id , quantity)
       VALUES
-      (${userId},${item_size_id},${quantity})
+      (${userId},${item_id},${quantity})
       
     `
   );
@@ -18,12 +18,13 @@ const createCart = async (userId, item_size_id, quantity) => {
 
 // 카트 보기
 const findCartByUserId = async userId => {
-  const findList = await dataSource.query(
-    `
+  const findList = await dataSource
+    .query(
+      `
       SELECT
         cart_item.id AS cart_item_id,
         item_size_price.item_id,
-        cart_item.item_size_id,
+        cart_item.item_size_id AS item_id,
         item.title AS title,
         item.img_url AS image,
         size.size,
@@ -41,13 +42,18 @@ const findCartByUserId = async userId => {
         users_id = ${userId}
 
     `
-  );
+    )
+    .then(cartList => {
+      return cartList.map((cartItem, idx) => {
+        return { ...cartItem, price: Number(cartItem.price) };
+      });
+    });
 
   return findList;
 };
 
 // 카트 내역 수정하기
-const updateCart = async (userId, item_size_id, quantity) => {
+const updateCart = async (userId, item_id, quantity) => {
   const updateList = await dataSource.query(
     `
       UPDATE
@@ -55,7 +61,7 @@ const updateCart = async (userId, item_size_id, quantity) => {
       SET
         quantity = ${quantity}
       WHERE
-        item_size_id = ${item_size_id}
+        item_size_id = ${item_id}
       AND
         users_id = ${userId}
 
