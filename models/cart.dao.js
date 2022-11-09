@@ -23,7 +23,6 @@ const findCartByUserId = async userId => {
       `
       SELECT
         cart_item.id AS cart_item_id,
-        item_size_price.item_id,
         cart_item.item_size_id AS item_id,
         item.title AS title,
         item.img_url AS image,
