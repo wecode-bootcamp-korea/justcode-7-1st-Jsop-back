@@ -1,7 +1,9 @@
 const database = require('./database');
 
+
 async function createProduct(product) {
-  const { title, img_url, description, category_2 } = product;
+  let { title, img_url, description, category_2 } = product;
+  img_url = process.env.ORIGIN_URL + img_url;
   return await database.query(
     `
         INSERT INTO
