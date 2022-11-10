@@ -1,8 +1,7 @@
 const items = [
   {
     title: '리무브',
-    img_url:
-      'https://www.aesop.com/medias/Aesop-Skin-Remove-60mL-large.png?context=bWFzdGVyfGltYWdlc3wzNTg0NDJ8aW1hZ2UvcG5nfGltYWdlcy9oMTIvaDQxLzg4MDUwNzIxNDIzNjYucG5nfDM2ODViMzA0ZWU1NGU0MzBkOGZjMGZlNjlhMTU2YjE2ZTQ0ZTY2NjY5MjBhZDRiN2NhNDU4NzgyYmE2NGNkMGE',
+    img_url: '1.png',
     description:
       '눈 주위의 민감한 피부를 달래고 진정시켜주는 마트리카리아가 포함된 부드러운 오일 제형의 아이 메이크업 리무브',
     price: [['60 mL', 27000]],
@@ -25,8 +24,7 @@ const items = [
   },
   {
     title: '파슬리 씨드 페이셜 클렌징 오일',
-    img_url:
-      'https://www.aesop.com/u1nb1km7t5q7/73DOrUUuPavrbJWFhSL2KW/d56da9fd45b0318682c3c04b8d38f066/Aesop_Kits_Gift_Kits_2021-22_Congruous_Web_Large_1584x962px.png',
+    img_url: '2.png',
     description:
       '진한 메이크업도 부드럽고 깨끗하게 닦아주는 오일 타입의 클렌저',
     price: [['200 mL', 65000]],
@@ -45,7 +43,7 @@ const items = [
   },
   {
     title: '퓨리파잉 페이셜 크림 클렌저',
-    img_url: 'test.png',
+    img_url: '3.png',
     description:
       '가벼운 메이크업을 지워주고, 피부에 남은 잔여물을 말끔하게 씻어내어 피부를 부드럽고 촉촉하게 가꿔 주는 크림 클렌저',
     price: [['100 mL', 40000]],
@@ -61,7 +59,7 @@ const items = [
   },
   {
     title: '페뷸러스 페이스 클렌저',
-    img_url: 'test.png',
+    img_url: '4.png',
     description:
       '진한 메이크업도 부드럽고 깨끗하게 닦아주는 오일 타입의 클렌저',
     price: [
@@ -83,7 +81,7 @@ const items = [
   },
   {
     title: '파슬리 씨드 페이셜 클렌저',
-    img_url: 'test.png',
+    img_url: '5.png',
     description: '피부를 건조하지 않고, 부드럽게 세정해주는 젤 클렌저',
     price: [
       ['100 mL', 45000],
@@ -108,7 +106,7 @@ const items = [
   },
   {
     title: '어메이징 페이스 클렌저',
-    img_url: 'test.png',
+    img_url: '6.png',
     description:
       '부드러운 거품이 피부를 효과적으로 세정하고 피부의 균형을 잡아주는 데일리 클렌저',
     price: [
@@ -130,7 +128,7 @@ const items = [
   },
   {
     title: '퓨리파잉 페이셜 엑스폴리언트 페이스트',
-    img_url: 'test.png',
+    img_url: '7.png',
     description:
       '각질을 관리해주면서 피부를 매끄럽게 클렌징 해주는 크림 베이스 클렌저',
     price: [['75 mL', 62000]],
@@ -149,7 +147,7 @@ const items = [
   },
   {
     title: '티 트리 리프 페이셜 엑스폴리언트',
-    img_url: 'test.png',
+    img_url: '8.png',
     description:
       '티 트리 리프, 너트 쉘, 클레이를 함유한 파우더 타입의 각질 관리제',
     price: [['30 mL', 43000]],
@@ -165,7 +163,7 @@ const items = [
   },
   {
     title: '파슬리 씨드 클렌징 마스크',
-    img_url: 'test.png',
+    img_url: '9.png',
     description:
       '파슬리 씨드와 로즈힙 열매오일 추출물이 함유된 클레이 베이스의 딥 클렌징 마스크로 피부의 잔여물을 효과적으로 세정하며 피부의 수분감을 유지시켜줍니다.',
     price: [['60 mL', 55000]],
@@ -188,7 +186,7 @@ const items = [
   },
   {
     title: '프림로즈 페이셜 클렌징 마스크',
-    img_url: 'test.png',
+    img_url: '10.png',
     description:
       '식물성 오일이 피부에 영양분을 공급하는 동시에, 잔여물을 깨끗이 씻어내어 상쾌함을 더하는 클레이 타입의 클렌징 마스크',
     price: [
@@ -217,7 +215,7 @@ const items = [
   },
   {
     title: '컨트롤',
-    img_url: 'test.png',
+    img_url: '11.png',
     description: '문제성 피부를 효과적으로 진정시켜주는 순한 스팟 트리트먼트',
     price: [['9 mL', 27000]],
     category: {
@@ -239,7 +237,7 @@ const items = [
   },
   {
     title: '카모마일 컨센트레이트 안티 블레미쉬 마스크',
-    img_url: 'test.png',
+    img_url: '12.png',
     description:
       '건조함 없이 모공까지 깨끗하게 세정해주며, 자극이 적고 효과적으로 피부를 진정시켜주어 문제성 피부 관리에도 적합한 딥 클렌징 마스크',
     price: [['60 mL', 53000]],
@@ -258,7 +256,7 @@ const items = [
   },
   {
     title: '페뷸러스 페이스 오일',
-    img_url: 'test.png',
+    img_url: '13.png',
     description:
       '정화 작용의 식물 추출물이 들어있어 혼잡한 피부를 정리하고 밸런스를 잡아주는 페이셜 오일',
     price: [['25 mL', 67000]],
@@ -274,7 +272,7 @@ const items = [
   },
   {
     title: '파슬리 씨드 안티 옥시던트 페이셜 토너',
-    img_url: 'test.png',
+    img_url: '14.png',
     description: '피부 진정과 수분 공급을 위한 부드러운 토너',
     price: [
       ['100 mL', 47000],
@@ -295,7 +293,7 @@ const items = [
   },
   {
     title: '비터 오렌지 아스트린젠트 토너',
-    img_url: 'test.png',
+    img_url: '15.png',
     description: '우수한 세정력을 지닌 시트러스 기반의 토너',
     price: [
       ['100 mL', 39000],
@@ -319,7 +317,7 @@ const items = [
   },
   {
     title: '비 앤 티 밸런싱 토너',
-    img_url: 'test.png',
+    img_url: '16.png',
     description:
       '프로비타민 B5가 함유하여 피부의 밸런스를 잡아주는 수렴성 토너',
     price: [
@@ -341,7 +339,7 @@ const items = [
   },
   {
     title: '레저렉션 아로마틱 핸드 워시',
-    img_url: 'test.png',
+    img_url: '1.png',
     description: '오렌지, 로즈마리, 라벤더 오일을 함유한 부드러운 핸드 워시',
     price: [
       ['500 mL (펌프 미포함)', 46000],
@@ -362,7 +360,7 @@ const items = [
   },
   {
     title: '레버런스 아로마틱 핸드 워시',
-    img_url: 'test.png',
+    img_url: '1.png',
     description:
       '고운 퓨마이스가 함유되어 손의 각질을 깨끗이 씻어주고 보태니컬 추출물 블렌드로 상쾌함을 주는 핸드 워시',
     price: [
@@ -384,7 +382,7 @@ const items = [
   },
   {
     title: '레저렉션 아로마틱 핸드 밤',
-    img_url: 'test.png',
+    img_url: '7.png',
     description:
       '지친 손과 큐티클에 풍부한 수분을 공급해주는 향긋한 보태니컬 핸드 밤',
     price: [
@@ -407,7 +405,7 @@ const items = [
   },
   {
     title: '에이 로즈 바이 애니 아더 네임 바디 클렌저',
-    img_url: 'test.png',
+    img_url: '5.png',
     description:
       '우수한 품질의 다마스크장미꽃오일과 피부를 부드럽게 가꿔주는 식물성 추출물을 함유해 부드러우면서 꼼꼼한 세정을 전하는 향기로운 클렌징 젤',
     price: [
@@ -427,7 +425,7 @@ const items = [
   },
   {
     title: '브레스리스',
-    img_url: 'test.png',
+    img_url: '6.png',
     description:
       '부드러움과 영양을 공급하는 넛트 오일 추출물과 풍부한 비타민 E성분을 함유한 바디 오일',
     price: [['100 mL', 39000]],
@@ -443,7 +441,7 @@ const items = [
   },
   {
     title: '코리안더 씨드 바디 클렌저',
-    img_url: 'test.png',
+    img_url: '3.png',
     description:
       '피부 세정과 독특하고 따뜻한 풍성한 아로마로 기분을 북돋아주는 거품이 적은 클렌징 젤',
     price: [
@@ -463,7 +461,7 @@ const items = [
   },
   {
     title: '제라늄 리프 바디 밤',
-    img_url: 'test.png',
+    img_url: '6.png',
     description:
       '영양이 풍부한 넛트 오일, 피부를 부드럽게 해주는 센티드제라늄추출물, 향기로운 시트러스 추출물을 함유한 바디 밤',
     price: [
@@ -482,7 +480,7 @@ const items = [
   },
   {
     title: '데오도란트',
-    img_url: 'test.png',
+    img_url: '8.png',
     description:
       '징크리시놀리에이트 및 상쾌한 에센셜 오일 블렌드가 함유된 스프레이 타입의 남녀 공용 데오도란트',
     price: [['50 mL', 37000]],
@@ -501,7 +499,7 @@ const items = [
   },
   {
     title: '허벌 데오도란트',
-    img_url: 'test.png',
+    img_url: '8.png',
     description:
       '징크리시놀리에이트와 피부를 편안하게 해주는 에센셜 오일이 함유된 스프레이 타입의 데오도란트',
     price: [['50 mL', 37000]],
@@ -523,7 +521,7 @@ const items = [
   },
   {
     title: '샴푸',
-    img_url: 'test.png',
+    img_url: '15.png',
     description:
       '프랑킨센스, 판테놀 등 뛰어난 성분을 함유하여 모발과 두피를 깨끗하게 세정하며 부드럽고 윤기나는 머릿결과 향기로운 모발을 선사하는 샴푸',
     price: [
@@ -549,7 +547,7 @@ const items = [
   },
   {
     title: '볼류마이징 샴푸',
-    img_url: 'test.png',
+    img_url: '15.png',
     description:
       '폴리쿼터늄-67이 모근 사이의 모발을 분리해 모발이 힘있고 풍성해지도록 도와주는 볼륨 샴푸',
     price: [['500 mL', 55000]],
@@ -568,7 +566,7 @@ const items = [
   },
   {
     title: '컨디셔너',
-    img_url: 'test.png',
+    img_url: '8.png',
     description:
       '아미노산을 풍부하게 함유하여 연약하고 가는 모발과 염색 모발을 포함한 대부분의 모발 타입을 부드럽고 촉촉하게 가꿔주며 머릿결을 향기롭고 상쾌하게 가꿔주는 영양이 풍부한 컨디셔너',
     price: [
@@ -598,7 +596,7 @@ const items = [
   },
   {
     title: '세이지 앤 시더 스칼프 트리트먼트',
-    img_url: 'test.png',
+    img_url: '11.png',
     description:
       '보태니컬 오일과 수분을 공급해주는 식물 추출물이 함유하고 있어 두피를 보호하고 진정시켜주는 오일 트리트먼트',
     price: [['25 mL', 41000]],
@@ -614,7 +612,7 @@ const items = [
   },
   {
     title: '이더시스 오 드 퍼퓸',
-    img_url: 'test.png',
+    img_url: '8.png',
     description:
       '밝은 오프닝 노트로 시작해 깊은 스파이스, 풍부한 흙내음, 건조한 우디 노트로 이어지는 묘한 매력의 향수',
     price: [['50 mL', 210000]],
@@ -630,7 +628,7 @@ const items = [
   },
   {
     title: '미라세티 오 드 퍼퓸',
-    img_url: 'test.png',
+    img_url: '4.png',
     description:
       '따뜻한 유향 노트의 향수로 바다 내음과 머스크 향이 떠오르는 우디한 흙내음이 페퍼와 허브 노트를 받쳐줍니다',
     price: [['50 mL', 210000]],
@@ -646,7 +644,7 @@ const items = [
   },
   {
     title: '카르스트 오 드 퍼퓸',
-    img_url: 'test.png',
+    img_url: '7.png',
     description:
       '무디하면서 상쾌한 향수로, 미네랄의 탑 노트와 폭풍우의 메탈릭한 베이스 노트가 어우러져 절벽에서 자란 식물과 해안을 연상시킵니다',
     price: [['50 mL', 210000]],
@@ -662,7 +660,7 @@ const items = [
   },
   {
     title: '에레미아 오 드 퍼퓸',
-    img_url: 'test.png',
+    img_url: '7.png',
     description:
       '밝은 시트러스 노트로 시작해 밀랍의 플로럴, 파우더리 머스크, 비 내린 뒤 콘크리트 내음으로 이어지는 활기차고 상쾌한 향수입니다.',
     price: [['50 mL', 210000]],
@@ -678,7 +676,7 @@ const items = [
   },
   {
     title: '프톨레미 아로마틱 캔들',
-    img_url: 'test.png',
+    img_url: '9.png',
     description:
       '시더, 사이프러스 그리고 베티버 노트가 어우러져 고대 숲을 연상시키는 아로마 향초. (*안전기준 적합확인 신고번호: CB20-26-1353 / 제품에 표기되어 있는 사용방법과 사용상 주의사항을 준수해 주시기 바랍니다.',
     price: [['300g', 130000]],
@@ -697,7 +695,7 @@ const items = [
   },
   {
     title: '아가니스 아로마틱 캔들',
-    img_url: 'test.png',
+    img_url: '9.png',
     description:
       '카다멈과 미모사 그리고 은은한 토바코가 어우러져 탕헤르 분위기를 떠오르게 하는 아로마 향초. (*안전기준 적합확인 신고번호: CB20-26-1355 / 제품에 표기되어 있는 사용방법과 사용상 주의사항을 준수해 주시기 바랍니다.',
     price: [['300g', 130000]],
@@ -716,7 +714,7 @@ const items = [
   },
   {
     title: '칼리푸스 아로마틱 캔들',
-    img_url: 'test.png',
+    img_url: '12.png',
     description:
       '프랑킨센스, 과이악우드, 상쾌한 시소 노트가 어우러져 제례 의식을 떠올리는 아로마 향초. (*안전기준 적합확인 신고번호: CB20-26-1354 / 제품에 표기되어 있는 사용방법과 사용상 주의사항을 준수해 주시기 바랍니다.)',
     price: [['300g', 130000]],
@@ -735,7 +733,7 @@ const items = [
   },
   {
     title: '이솝: 더 북',
-    img_url: 'test.png',
+    img_url: '12.png',
     description:
       '336 페이지에 달하는 우리의 첫 번째 도서가 린넨 양장본으로 리졸리 뉴욕 출판사에서 출간됩니다. 제품 제조에서 공간 디자인, 초창기부터 현재에 이르는 이솝의 지난 30여년간을 담은 연대기가 뛰어난 사진과 아카이브 이미지와 함께 기록되었습니다.',
     price: [['2.180 kg', 50000]],
