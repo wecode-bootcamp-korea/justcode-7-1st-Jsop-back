@@ -1,0 +1,121 @@
+// 유저 테이블
+Table "users" as U {
+  "id" integer [pk, increment]
+  "email" varchar(255) [not null, unique, note:'이메일']
+  "password" varchar(255) [not null]
+  "first_name" varchar(255) [not null, note:'성']
+  "last_name" varchar(255) [not null, note:'이름']
+  created_at "timestamp default CURRENT_TIMESTAMP" [not null, note:'생성 날짜']
+}
+
+Table "users_address" {
+  "id" integer [pk, increment]
+  "users_id" integer [ref: > users.id]
+  "address" varchar(255) [not null]
+}
+
+// 상품 테이블
+Table "item" as P {
+  "id" integer [pk, increment]
+  "title" varchar(50) [not null, note:'제품 이름']
+  "img_url" varchar(255) [not null, note:'제품 이미지']
+  "description" TEXT [not null, note:'제품 설명']
+  "2_level_category_id" integer [ref: > 2_level_category.id, note:'카테고리 ID']
+}
+
+// 아이템 사이즈 가격 테이블
+Table "item_size_price" {
+  "id" integer [pk, increment]
+  "item_id" integer [ref: > item.id, note: '상품 ID']
+  "size_id" integer [ref: > size.id, not null, note: 'ex) 50ml, 100ml']
+  "price" decimal [not null, note: '상품의 사이즈 별 가격']
+  // item_size 테이블에는 (1, 10), (1, 10) 이렇게 두개가 공존할 이유가 없다.
+  // 따라서 item_id, value의 조합이 겹치지 않도록 설정했음.
+  Indexes {
+    (item_id, size_id) [unique]
+  }
+}
+
+// 각각의 카트에 담긴 아이템 (어떤 사이즈의 아이템을 누가 몇개 담았다)
+Table "cart_item"{
+  "id" integer [pk, increment]
+  "users_id" integer  [ref: > users.id, note: '카트 주인']
+  "item_size_id" integer  [ref: > item_size_price.id, note: '담은 아이템']
+  "quantity" integer [not null, note: '담은 수량']
+}
+
+// 1차 카테고리 테이블
+Table "1_level_category"{
+  "id" integer [pk, increment]
+  "content" varchar(50) [not null, unique, note:'ex) 스킨케어, 바디&핸드, 향수']
+}
+
+// 2차 카테고리 테이블
+Table "2_level_category"{
+  "id" integer [pk, increment]
+  "1_level_category_id" integer [ref: > 1_level_category.id]
+  "content" varchar(50) [not null, unique, note:'ex) 클렌저, 각질 제거, 트리트먼트 & 마스크, 토너']
+}
+
+// 속성 테이블
+Table "property_types"{
+  "id" integer [pk, increment]
+  "2_level_id" integer [not null, ref: > 2_level_category.id]
+  "property_type_contents_id" integer [not null, ref: > property_type_contents.id]
+  Indexes {
+    (2_level_id, property_type_contents_id) [unique]
+  }
+}
+
+// 속성 내용 테이블
+Table "property_type_contents"{
+  "id" integer [pk, increment]
+  "content" varchar(50) [not null, unique, note:'ex) 피부타입, 사용감, 주요성분']
+}
+
+// 2차 카테고리별 설명 타이틀의 키워드 테이블
+Table "properties"{
+  "id" integer [pk, increment]
+  "property_type_contents_id" integer [ref: > property_type_contents.id]
+  "content" varchar(50) [not null, note: 'ex) 모든 피부, 메이크업을 한 피부, 진정된, 생기있는']
+  Indexes {
+    (property_type_contents_id, content) [unique]
+  }
+}
+
+// 주문 테이블
+Table "orders"{
+  "id" integer [pk, increment]
+  "order_number" varchar(150) [not null, unique]
+  "total_price" decimal [not null]
+  "users_id" integer  [ref: > users.id, note: '주문자 ID']
+  "address" varchar(150) [note: '주문 주소']
+  created_at "timestamp default CURRENT_TIMESTAMP" [not null, note:'생성 날짜']
+}
+
+Table "order_contract"{
+  "id" integer [pk, increment]
+  "user_id" integer [unique, ref: - U.id ]
+  "zipcode" varchar (10) [not null]
+  "street_address" varchar(150) [note: '주문 주소']
+  "supplimental_address" varchar(150) [note: '주문 주소']
+}
+
+Table "size" {
+  "id" integer [pk, increment]
+  "size" varchar(50) [not null, unique, note: '100ml, 150ml']
+}
+
+Table "item_properties"{
+  "id" integer [pk, increment]
+  "item_id" integer  [ref: > item.id]
+  "properties_id" integer [ref: > properties.id]
+}
+
+// 주문 아이템 테이블
+Table "order_item"{
+  "id" integer [pk, increment]
+  "order_id" integer  [ref: > orders.id]
+  "item_size_id" integer  [ref: > item_size_price.id]
+  "quantity" integer [not null]
+}
