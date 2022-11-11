@@ -49,7 +49,7 @@ async function createOrder(userId) {
         orders ( order_number, total_price, users_id, orders.address)
       SELECT
         concat(cart_item.users_id,"-",now()) as order_number,
-        sum(price) as total_price,
+        sum(item_size_price.price * cart_item.quantity) as total_price,
         cart_item.users_id as users_id,
         concat(
           zipcode,
