@@ -25,7 +25,7 @@ async function findOrderContract(req, res) {
 }
 
 async function createOrder(req, res) {
-  const result = await orderServ.createOrder(req.userInfo.id);
+  await orderServ.createOrder(req.userInfo.id);
   res.status(201).json({ message: 'ADD_SUCCESSFULLY' });
 }
 

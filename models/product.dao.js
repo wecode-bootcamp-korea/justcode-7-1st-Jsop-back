@@ -1,6 +1,5 @@
 const database = require('./database');
 
-
 async function createProduct(product) {
   let { title, img_url, description, category_2 } = product;
   img_url = process.env.ORIGIN_URL + img_url;
@@ -12,22 +11,6 @@ async function createProduct(product) {
           (?, ?, ?, ?)
     `,
     [title, img_url, description, category_2.id]
-  );
-}
-
-async function test() {
-  return await database.query(
-    `
-    SELECT
-      EXISTS(
-        SELECT
-          *
-        FROM
-          cart_item
-        WHERE
-          users_id = 1
-      ) AS Result;
-    `
   );
 }
 
@@ -143,7 +126,8 @@ async function createItemProperty(itemId, propertyId) {
   return rtn;
 }
 
-async function getAllProduct() {
+async function getProducts(option={}) {
+  const {productId, level_1_category, level_2_category} = option;
   const rtn = await database.query(`
   SELECT
     item.id,
@@ -188,7 +172,29 @@ async function getAllProduct() {
         item.id,
         property_type_contents.content
     ) item_type_property ON item_type_property.item_id = item.id
-  WHERE type_content = property_type_contents.content
+  WHERE
+      type_content = property_type_contents.content
+  ${
+      productId ?
+    `
+    AND
+      item.id = ${productId}
+    ` : ''
+  }
+  ${
+    level_1_category ?
+    `
+    AND
+      1_level_category.content = '${level_1_category}'
+    ` : ''
+  }
+  ${
+    level_2_category ?
+    `
+    AND
+      2_level_category.content = '${level_2_category}'
+    ` : ''
+  }
   GROUP BY
     item.id,
     title,
@@ -205,193 +211,8 @@ async function getAllProduct() {
   return rtn;
 }
 
-async function findProductByCategory1(level_1_cate) {
-  const result = await database.query(`
-  SELECT
-    item.id,
-    item.title,
-    item.img_url,
-    item.description,
-    CONCAT('[',price,']') as price,
-    JSON_OBJECT(
-      'level_1_category',
-      1_level_category.content,
-      'level_2_category',
-      2_level_category.content
-    ) AS category,
-    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
-  FROM
-    item
-  JOIN(
-      SELECT
-        item_id,
-        GROUP_CONCAT(JSON_ARRAY(size, price, item_size_price.id) order by item_size_price.id) AS price
-      FROM
-        item_size_price
-      LEFT JOIN
-        size ON size.id = item_size_price.size_id
-      GROUP BY
-        item_id
-      ) price ON price.item_id = item.id
-  JOIN 2_level_category ON 2_level_category.id = item.2_level_category_id
-  JOIN 1_level_category ON 1_level_category.id = 2_level_category.1_level_category_id
-  JOIN property_types ON property_types.2_level_id = item.2_level_category_id
-  JOIN property_type_contents ON property_type_contents.id = property_types.property_type_contents_id
-  JOIN(
-      SELECT
-        item.id AS item_id,
-        property_type_contents.content AS type_content,
-        JSON_ARRAYAGG(properties.content) AS property
-      FROM item
-      JOIN item_properties ON item_id = item.id
-      JOIN properties ON properties.id = item_properties.properties_id
-      JOIN property_type_contents ON property_type_contents.id = properties.property_type_contents_id
-      GROUP BY item.id, property_type_contents.content
-      ) item_type_property ON item_type_property.item_id = item.id
-  WHERE type_content = property_type_contents.content
-  AND 1_level_category.content = '${level_1_cate}'
-  GROUP BY
-      item.id,
-      title,
-      img_url,
-      price,
-      item.description,
-      category
-  `)
-  .then((answer) => {
-      return [...answer].map((item)=> {
-        return {...item, price: JSON.parse(item.price), category: JSON.parse(item.category), properties: JSON.parse('['+item.properties+']')}
-      })
-    });
-    return result;
-}
-
-async function findProductByCategory2(level_2_cate) {
-  const result = await database.query(`
-  SELECT
-    item.id,
-    item.title,
-    item.img_url,
-    item.description,
-    CONCAT('[',price,']') as price,
-    JSON_OBJECT(
-      'level_1_category',
-      1_level_category.content,
-      'level_2_category',
-      2_level_category.content
-    ) AS category,
-    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property) ORDER BY property_types.id) AS properties
-  FROM
-    item
-  JOIN(
-      SELECT
-        item_id,
-        GROUP_CONCAT(JSON_ARRAY(size, price) order by item_size_price.id) AS price
-      FROM item_size_price
-      LEFT JOIN size ON size.id = item_size_price.size_id
-      GROUP BY item_id
-      ) price ON price.item_id = item.id
-  JOIN 2_level_category ON 2_level_category.id = item.2_level_category_id
-  JOIN 1_level_category ON 1_level_category.id = 2_level_category.1_level_category_id
-  JOIN property_types ON property_types.2_level_id = item.2_level_category_id
-  JOIN property_type_contents ON property_type_contents.id = property_types.property_type_contents_id
-  JOIN(
-      SELECT
-        item.id AS item_id,
-        property_type_contents.content AS type_content,
-        JSON_ARRAYAGG(properties.content) AS property
-      FROM item
-      JOIN item_properties ON item_id = item.id
-      JOIN properties ON properties.id = item_properties.properties_id
-      JOIN property_type_contents ON property_type_contents.id = properties.property_type_contents_id
-      GROUP BY item.id, property_type_contents.content
-      ) item_type_property ON item_type_property.item_id = item.id
-      WHERE type_content = property_type_contents.content
-      AND 2_level_category.content = '${level_2_cate}'
-  GROUP BY
-      item.id,
-      title,
-      img_url,
-      price,
-      item.description,
-      category
-  `)
-  .then((answer) => {
-      return [...answer].map((item)=> {
-        return {...item, price: JSON.parse(item.price), category: JSON.parse(item.category), properties: JSON.parse('['+item.properties+']')}
-      })
-    });
-    return result;
-}
-
-async function findProductById(Id) {
-  const result = await database.query(`
-  SELECT
-    item.id,
-    item.title,
-    item.img_url,
-    item.description,
-    CONCAT('[',price,']') as price,
-    JSON_OBJECT(
-      'level_1_category',
-      1_level_category.content,
-      'level_2_category',
-      2_level_category.content
-    ) AS category,
-    GROUP_CONCAT(JSON_OBJECT('types', property_type_contents.content, 'values', property)
-  ORDER BY
-    property_types.id) AS properties
-  FROM
-  item
-  JOIN(
-    SELECT
-      item_id,
-      GROUP_CONCAT(JSON_ARRAY(size, price, item_size_price.id) order by item_size_price.id) AS price
-    FROM
-      item_size_price
-      LEFT JOIN size ON size.id = item_size_price.size_id
-    GROUP BY
-      item_id
-  ) price ON price.item_id = item.id
-  JOIN 2_level_category ON 2_level_category.id = item.2_level_category_id
-  JOIN 1_level_category ON 1_level_category.id = 2_level_category.1_level_category_id
-  JOIN property_types ON property_types.2_level_id = item.2_level_category_id
-  JOIN property_type_contents ON property_type_contents.id = property_types.property_type_contents_id
-  JOIN (
-    SELECT
-      item.id AS item_id,
-      property_type_contents.content AS type_content,
-      JSON_ARRAYAGG(properties.content) AS property
-    FROM
-      item
-      JOIN item_properties ON item_id = item.id
-      JOIN properties ON properties.id = item_properties.properties_id
-      JOIN property_type_contents ON property_type_contents.id = properties.property_type_contents_id
-    GROUP BY
-      item.id,
-      property_type_contents.content
-  ) item_type_property ON item_type_property.item_id = item.id
-WHERE type_content = property_type_contents.content AND item.id = ${Id}
-GROUP BY
-  item.id,
-  title,
-  img_url,
-  price,
-  item.description,
-  category
-`)
-.then((answer) => {
-  return [...answer].map((item)=> {
-    return {...item, price: JSON.parse(item.price), category: JSON.parse(item.category), properties: JSON.parse('['+item.properties+']')}
-  })
-});
-return result;
-}
-
-
 module.exports = {
   createProduct,
-  test,
   findCategory,
   findSize,
   createSize,
@@ -400,8 +221,5 @@ module.exports = {
   createProperty,
   findPropety,
   createItemProperty,
-  getAllProduct,
-  findProductByCategory1,
-  findProductByCategory2,
-  findProductById,
+  getProducts,
 };

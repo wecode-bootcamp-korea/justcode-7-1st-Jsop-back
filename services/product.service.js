@@ -1,10 +1,5 @@
 const itemDao = require('../models/product.dao');
 
-async function test() {
-  const result = await itemDao.test();
-  console.log(`result :`, result);
-}
-
 async function createProduct(product) {
   const { category, price, properties } = product;
   const { level_1_category, level_2_category } = category;
@@ -54,24 +49,9 @@ async function createProduct(product) {
   return item;
 }
 
-async function getAllProduct() {
-  const result = await itemDao.getAllProduct();
+async function getProducts(option) {
+  const result = await itemDao.getProducts(option);
   return result;
 }
 
-async function findProductByCategory( level_1_cate, level_2_cate ) {
-  let result;
-  if (level_2_cate === "") {
-    result = await itemDao.findProductByCategory1(level_1_cate);
-  } else {
-    result = await itemDao.findProductByCategory2(level_2_cate);
-  }
-  return result;
-}
-
-async function findProductById(Id) {
-  const result = await itemDao.findProductById(Id);
-  return result;
-}
-
-module.exports = { test, createProduct, getAllProduct, findProductByCategory, findProductById };
+module.exports = { createProduct, getProducts,};
