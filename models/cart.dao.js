@@ -9,7 +9,7 @@ const createCart = async (userId, item_id, quantity) => {
         (users_id, item_size_id , quantity)
       VALUES
       (${userId},${item_id},${quantity})
-      
+
     `
   );
 
@@ -17,7 +17,7 @@ const createCart = async (userId, item_id, quantity) => {
 };
 
 const existCart = async (userId, item_id) => {
-  const result = await dataSource.query(
+  const [result] = await dataSource.query(
     `
       SELECT EXISTS (
         SELECT * FROM
@@ -26,26 +26,26 @@ const existCart = async (userId, item_id) => {
           users_id = ${userId}
         AND
           item_size_id = ${item_id})
-        AS isExists 
-        
+        AS isExists
+
     `
   );
 
-  return +result[0].isExists;
+  return result.isExists;
 };
 
 const plusQuantity = async (userId, item_id) => {
   const result = await dataSource.query(
     `
       UPDATE
-        cart_item 
+        cart_item
       SET
         quantity = quantity + 1
       WHERE
-        users_id = ${userId} 
+        users_id = ${userId}
       AND
         item_size_id = ${item_id}
-        
+
     `
   );
   return result;
@@ -78,7 +78,7 @@ const findCartByUserId = async userId => {
     `
     )
     .then(cartList => {
-      return cartList.map((cartItem, idx) => {
+      return cartList.map(cartItem => {
         return { ...cartItem, price: Number(cartItem.price) };
       });
     });
@@ -98,7 +98,6 @@ const updateCart = async (userId, item_id, quantity) => {
         item_size_id = ${item_id}
       AND
         users_id = ${userId}
-
     `
   );
 
@@ -111,11 +110,10 @@ const deleteCart = async (userId, item_id) => {
     `
       DELETE FROM
         cart_item
-     WHERE
+      WHERE
         item_size_id = ${item_id}
       AND
         users_id = ${userId}
-        
     `
   );
 

@@ -1,7 +1,7 @@
 const dataSource = require('./database');
 
 async function createUser(first_name, last_name, email, hashed_password) {
-  const data = await dataSource.query(`
+  await dataSource.query(`
     INSERT INTO
       users (first_name, last_name, email, password)
     VALUES

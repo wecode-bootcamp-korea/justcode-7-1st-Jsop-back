@@ -17,7 +17,7 @@ function decodeToken(token) {
   }
 }
 
-const errorHandler = (err, _1, res, _2) => {
+const errorHandler = (err, req, res, next) => {
   // 흐름상 에러가 검출되면 로그 표시 및 클라이언트에게 전달
   let responseInfo = err;
   if (err.sqlMessage) {
