@@ -19,7 +19,6 @@ async function findOrderContract(userId) {
 }
 
 async function createOrder(userId) {
-  console.log(`userId: `, userId);
   // 카트 리스트 확인
   const bExistCartItems = await orderDao.existCartItemsByUserId(userId);
   // 카트 내 리스트가 없으면 빠꾸
@@ -35,10 +34,7 @@ async function createOrder(userId) {
   // order 생성
   const orderResult = await orderDao.createOrder(userId);
   // order Item 생성
-  const createResult = await orderDao.createOrderItems(
-    userId,
-    orderResult.insertId
-  );
+  await orderDao.createOrderItems(userId, orderResult.insertId);
   // 기존 카트 아이템 제거
   await orderDao.deleteAllCartItems(userId);
 }

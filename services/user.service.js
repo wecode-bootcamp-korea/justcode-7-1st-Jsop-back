@@ -1,17 +1,17 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const userDAO = require('../models/user.dao');
+const userDao = require('../models/user.dao');
 
-async function signup(first_name, last_name, email, password) {
+async function signup(firstName, lastName, email, password) {
   // email not include @ and .
   const emailregex = /\S+@\S+\.\S+/;
   if (!emailregex.test(email)) {
-    throw { message: '아이디는 이메일 형식이여야 합니다.' };
+    throw { message: '아이디는 이메일 형식이여야 합니다.', status: 400 };
   }
   // email 주소 중복
-  const existUSER = await userDAO.existUser(email);
-  if (existUSER) {
-    throw { message: '이미 존재하는 아이디입니다.' };
+  const existUser = await userDao.existUser(email);
+  if (existUser) {
+    throw { message: '이미 존재하는 아이디입니다.', status: 400 };
   }
 
   const pwregex = /^(?=.*?[A-Z])(?=.*?[0-9]).{6,}$/;
@@ -19,35 +19,42 @@ async function signup(first_name, last_name, email, password) {
     throw {
       message:
         '비밀번호는 대문자, 숫자를 포함하여 6자 이상으로 작성하여야 합니다.',
+      status: 400,
     };
   }
 
   // 비밀번호 암호화
-  const hashed_password = bcrypt.hashSync(password, bcrypt.genSaltSync());
-  const createUSER = await userDAO.createUser(
-    first_name,
-    last_name,
+  const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync());
+  const createUser = await userDao.createUser(
+    firstName,
+    lastName,
     email,
-    hashed_password
+    hashedPassword
   );
-  return createUSER;
+  return createUser;
 }
 
 async function login(email, password) {
   // email이 형식이 다를 때
   if (!email.includes('@') || !email.includes('.')) {
-    throw { message: '아이디는 이메일 형식이여야 합니다.' };
+    throw { message: '아이디는 이메일 형식이여야 합니다.', status: 400 };
   }
   // email이 존재하지 않을 때
-  const findUserByEmail = await userDAO.findUserByEmail(email);
+  const findUserByEmail = await userDao.findUserByEmail(email);
 
   if (!findUserByEmail) {
-    throw { message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.' };
+    throw {
+      message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.',
+      status: 400,
+    };
   }
   // 비밀번호가 틀림
   const isSame = bcrypt.compareSync(password, findUserByEmail.password);
   if (isSame === false) {
-    throw { message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.' };
+    throw {
+      message: '아이디가 존재하지 않거나 비밀번호가 맞지 않습니다.',
+      status: 400,
+    };
   }
 
   // 토큰 생성
@@ -56,7 +63,7 @@ async function login(email, password) {
 }
 
 async function getMe(userId) {
-  const userInfo = await userDAO.findUserById(userId);
+  const userInfo = await userDao.findUserById(userId);
   return userInfo;
 }
 

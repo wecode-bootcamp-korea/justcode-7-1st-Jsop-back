@@ -18,7 +18,6 @@ const createCart = async (req, res) => {
 
     res.status(201).json({ message: 'CREATE_SUCCESSFULLY' });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -36,7 +35,6 @@ const findCartByUserId = async (req, res) => {
 
     res.status(200).json({ message: 'FIND_CARTLIST', data: findList });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -57,7 +55,6 @@ const updateCart = async (req, res) => {
 
     res.status(201).json({ message: 'UPDATE_SUCCESSFULLY' });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ message: err.message });
   }
 };
@@ -75,9 +72,8 @@ const deleteCart = async (req, res) => {
 
     await cartService.deleteCart(userId, item_id);
 
-    res.status(201).json({ message: 'DELETE_SUCCESSFULLY' });
+    res.status(204).json({ message: 'DELETE_SUCCESSFULLY' });
   } catch (err) {
-    console.log(err);
     res.status(400).json({ message: err.message });
   }
 };
