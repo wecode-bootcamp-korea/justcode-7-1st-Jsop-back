@@ -113,16 +113,18 @@ async function findPropety(property) {
   return rtn;
 }
 
+// TODO 3 - SQL inject 방어 방법으로 변경
 async function createItemProperty(itemId, propertyId) {
   const rtn = await database.query(
     `
       INSERT INTO
         item_properties(item_id, properties_id)
       VALUES
-        (?, ?)
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `,
     [itemId, propertyId]
   );
+
   return rtn;
 }
 
@@ -174,27 +176,9 @@ async function getProducts(option={}) {
     ) item_type_property ON item_type_property.item_id = item.id
   WHERE
       type_content = property_type_contents.content
-  ${
-      productId ?
-    `
-    AND
-      item.id = ${productId}
-    ` : ''
-  }
-  ${
-    level_1_category ?
-    `
-    AND
-      1_level_category.content = '${level_1_category}'
-    ` : ''
-  }
-  ${
-    level_2_category ?
-    `
-    AND
-      2_level_category.content = '${level_2_category}'
-    ` : ''
-  }
+  ${ productIdBuilder(productId) }
+  ${ categoryBuilder('1_level_category', level_1_category)}
+  ${ categoryBuilder('2_level_category', level_2_category)}
   GROUP BY
     item.id,
     title,
@@ -221,5 +205,6 @@ module.exports = {
   createProperty,
   findPropety,
   createItemProperty,
+  // TODO2 - findProducts
   getProducts,
 };
